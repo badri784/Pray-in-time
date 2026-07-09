@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:pray_in_time/core/theming/app_theme.dart';
 import 'package:pray_in_time/feature/ui/homescren/home_screen.dart';
 
 class PrayerInTimeApp extends StatelessWidget {
@@ -15,12 +16,9 @@ class PrayerInTimeApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-              brightness: Brightness.dark,
-              seedColor: Colors.deepPurple,
-            ),
-          ),
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: ThemeMode.system,
           home: HomeScreen(),
         );
       },
