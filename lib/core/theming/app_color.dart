@@ -15,7 +15,7 @@ class AppColors {
   // =========================================
   // 2. Dark Theme Colors (ألوان الوضع الليلي)
   // =========================================
-  static const Color darkBackground = Color(0xFF121212); // لون الشاشة الأساسي
+  static const Color darkBackground = Color(0xff020618); // لون الشاشة الأساسي
   static const Color darkSurface = Color(0xFF1E1E1E); // لون الكروت (Cards)
   static const Color darkSurfaceHighlight = Color(
     0xFF2A3A34,
