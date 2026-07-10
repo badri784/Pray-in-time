@@ -15,10 +15,11 @@ class PrayerInTimeApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+
           title: 'Flutter Demo',
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.system,
+          themeMode: ThemeMode.dark,
           home: HomeScreen(),
         );
       },
