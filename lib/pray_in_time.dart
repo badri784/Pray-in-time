@@ -20,7 +20,7 @@ class PrayerInTimeApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.dark,
-          home: HomeScreen(),
+          home: const HomeScreen(),
         );
       },
     );
