@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/logic/prayer_time_cubit.dart';
+import '../../core/logic/prayer_time_cubit.dart';
 
 class PrayerTimeErrorWidget extends StatelessWidget {
   const PrayerTimeErrorWidget({super.key, required this.message});

@@ -3,8 +3,8 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PrayerTimeLoadingWidget extends StatelessWidget {
-  const PrayerTimeLoadingWidget({super.key});
-
+  const PrayerTimeLoadingWidget({super.key, required this.text});
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +18,7 @@ class PrayerTimeLoadingWidget extends StatelessWidget {
               size: 20.sp,
             ),
             SizedBox(height: 10.h),
-            const Text('loading prayer times...'),
+            Text(text),
           ],
         ),
       ),
