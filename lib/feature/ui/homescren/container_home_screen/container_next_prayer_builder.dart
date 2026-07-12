@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
@@ -10,8 +11,8 @@ import 'conteiner_loaded_prayer.dart';
 import '../../../widget/prayer_time_error_widget.dart';
 import '../../../widget/prayer_time_loading_widget.dart';
 
-class ConrtainerOfNextPrayre extends StatelessWidget {
-  const ConrtainerOfNextPrayre({super.key});
+class ConrtainerOfNextPrayreBuilder extends StatelessWidget {
+  const ConrtainerOfNextPrayreBuilder({super.key});
   @override
   Widget build(BuildContext context) {
     // final prayerTimes = context.read<PrayerTimeCubit>().getPrayerTimes();
@@ -25,10 +26,16 @@ class ConrtainerOfNextPrayre extends StatelessWidget {
           return PrayerTimeErrorWidget(message: state.message);
         }
         if (state is PrayerTimeLoaded) {
-          final prayerTimes = state.prayerTimes;
+          final PrayerTimes prayerTimes = state.prayerTimes;
           final String nextPrayer = prayerTimes.nextPrayer().name;
-          log('nextPrayer: $nextPrayer');
-          return ContainerLoadedPrayer(nextPrayer: nextPrayer);
+          final DateTime? nextPrayerTime = prayerTimes.timeForPrayer(
+            prayerTimes.nextPrayer(),
+          );
+          log('nextPrayerTime: $nextPrayerTime');
+          return ContainerLoadedPrayer(
+            nextPrayer: nextPrayer,
+            nextPrayerTime: nextPrayerTime,
+          );
         } else {
           return Container(
             height: 250.h,

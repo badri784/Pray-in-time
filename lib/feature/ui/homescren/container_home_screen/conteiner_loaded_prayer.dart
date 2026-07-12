@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import 'next_prayer.dart';
+import 'prayer_at.dart';
+import 'timer_for_next_prayer.dart';
+
 class ContainerLoadedPrayer extends StatelessWidget {
-  const ContainerLoadedPrayer({super.key, required this.nextPrayer});
+  const ContainerLoadedPrayer({
+    super.key,
+    required this.nextPrayer,
+    required this.nextPrayerTime,
+  });
 
   final String nextPrayer;
+  final DateTime? nextPrayerTime;
 
   @override
   Widget build(BuildContext context) {
@@ -33,34 +42,11 @@ class ContainerLoadedPrayer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Spacer(),
-          Container(
-            padding: EdgeInsets.all(8.w),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Theme.of(
-                  context,
-                ).colorScheme.secondary.withValues(alpha: 0.7),
-                width: .9,
-              ),
-              borderRadius: BorderRadius.circular(16.r),
-              color: Theme.of(
-                context,
-              ).colorScheme.secondary.withValues(alpha: 0.07),
-            ),
-
-            child: Text(
-              'Next prayer: $nextPrayer',
-              style: TextStyle(
-                fontSize: 12.sp,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-            ),
-          ),
+          NextPrayerWidget(nextPrayer: nextPrayer),
           const Spacer(),
-
-          const Text('Timer', style: TextStyle(fontSize: 28)),
+          TimerForNextPrayer(nextPrayerTime: nextPrayerTime),
           const Spacer(),
-          Text('Prayer at 04:37 PM', style: TextStyle(fontSize: 14.sp)),
+          PrayerAtTime(nextPrayerTime: nextPrayerTime),
           const Spacer(),
           Text('Mandatory Alarm Active', style: TextStyle(fontSize: 12.sp)),
           const Spacer(),

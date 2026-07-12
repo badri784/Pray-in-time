@@ -40,7 +40,7 @@ class _HomeAppBarState extends State<HomeAppBar>
     final now = DateTime.now();
     final formattedDate = DateFormat('MMMM d, yyyy').format(now);
     final weekDay = DateFormat('EEEE').format(now);
-    final time = DateFormat('HH:mm').format(now);
+    final time = DateFormat.jm().format(now);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Row(

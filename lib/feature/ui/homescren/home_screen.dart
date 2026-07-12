@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'container_home_screen/container_next_prayer.dart';
+import 'container_home_screen/container_next_prayer_builder.dart';
 import 'home_widget/daily_prayer.dart';
 import 'home_widget/hijri_date.dart';
 import 'home_widget/home_app_bar.dart';
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               const HijriDateWidget(),
               SizedBox(height: 25.h),
-              const ConrtainerOfNextPrayre(),
+              const ConrtainerOfNextPrayreBuilder(),
               SizedBox(height: 8.h),
               const DailyPrayerSchedule(),
               SizedBox(height: 8.h),
