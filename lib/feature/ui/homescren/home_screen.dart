@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:pray_in_time/feature/ui/homescren/home_widget/container_next_prayer.dart';
-import 'package:pray_in_time/feature/ui/homescren/home_widget/daily_prayer.dart';
-import 'package:pray_in_time/feature/ui/homescren/home_widget/hijri_date.dart';
-import 'package:pray_in_time/feature/ui/homescren/home_widget/home_app_bar.dart';
-import 'package:pray_in_time/feature/ui/homescren/home_widget/prayer_time_provider.dart';
+import 'home_widget/container_next_prayer.dart';
+import 'home_widget/daily_prayer.dart';
+import 'home_widget/hijri_date.dart';
+import 'home_widget/home_app_bar.dart';
+import 'home_widget/prayer_time_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

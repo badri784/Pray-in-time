@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pray_in_time/core/theming/app_color.dart';
+import 'app_color.dart';
 
 class AppTheme {
   // =========================================

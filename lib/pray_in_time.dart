@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:pray_in_time/core/theming/app_theme.dart';
-import 'package:pray_in_time/feature/ui/homescren/home_screen.dart';
+import 'core/theming/app_theme.dart';
+import 'feature/ui/homescren/home_screen.dart';
 
 class PrayerInTimeApp extends StatelessWidget {
   const PrayerInTimeApp({super.key});

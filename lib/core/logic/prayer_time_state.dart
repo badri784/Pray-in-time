@@ -7,13 +7,11 @@ class PrayerTimeInitial extends PrayerTimeState {}
 class PrayerTimeLoading extends PrayerTimeState {}
 
 class PrayerTimeLoaded extends PrayerTimeState {
-  final PrayerTimes prayerTimes;
-
   PrayerTimeLoaded(this.prayerTimes);
+  final PrayerTimes prayerTimes;
 }
 
 class PrayerTimeError extends PrayerTimeState {
-  final String message;
-
   PrayerTimeError(this.message);
+  final String message;
 }

@@ -1,13 +1,12 @@
 import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
-import 'package:pray_in_time/feature/ui/homescren/home_widget/prayer_info.dart';
-import 'package:pray_in_time/feature/ui/homescren/home_widget/prayer_row.dart';
+import 'prayer_info.dart';
+import 'prayer_row.dart';
 
 /// Displays the full list of daily prayer times.
 class PrayerTimeListTile extends StatelessWidget {
-  final PrayerTimes prayerTimes;
-
   const PrayerTimeListTile({super.key, required this.prayerTimes});
+  final PrayerTimes prayerTimes;
 
   @override
   Widget build(BuildContext context) {

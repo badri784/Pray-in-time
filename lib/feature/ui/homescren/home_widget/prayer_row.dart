@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:pray_in_time/feature/ui/homescren/home_widget/prayer_info.dart';
+import 'prayer_info.dart';
 
 /// A single prayer row with icon, name, time, and alarm bell.
 class PrayerRow extends StatelessWidget {
-  final PrayerInfo prayer;
-  final bool isNext;
-  final bool isPassed;
-
   const PrayerRow({
     super.key,
     required this.prayer,
     required this.isNext,
     required this.isPassed,
   });
+  final PrayerInfo prayer;
+  final bool isNext;
+  final bool isPassed;
 
   /// Resolves color based on prayer state: next → [active],
   /// passed → [passed], otherwise → [normal].
