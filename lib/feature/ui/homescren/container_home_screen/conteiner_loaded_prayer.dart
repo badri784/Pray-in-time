@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import 'alarm_active.dart';
 import 'next_prayer.dart';
 import 'prayer_at.dart';
 import 'timer_for_next_prayer.dart';
@@ -48,7 +49,7 @@ class ContainerLoadedPrayer extends StatelessWidget {
           const Spacer(),
           PrayerAtTime(nextPrayerTime: nextPrayerTime),
           const Spacer(),
-          Text('Mandatory Alarm Active', style: TextStyle(fontSize: 12.sp)),
+          const AlarmActive(),
           const Spacer(),
         ],
       ),

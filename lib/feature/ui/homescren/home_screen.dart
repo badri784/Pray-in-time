@@ -1,5 +1,7 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import '../../../alarm.dart';
 import 'container_home_screen/container_next_prayer_builder.dart';
 import 'home_widget/daily_prayer.dart';
 import 'home_widget/hijri_date.dart';
@@ -13,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 75,
         title: const HomeAppBar(),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
@@ -29,6 +32,20 @@ class HomeScreen extends StatelessWidget {
               const DailyPrayerSchedule(),
               SizedBox(height: 8.h),
               const PrayerTimeWidget(),
+              ElevatedButton(
+                onPressed: () async {
+                  // جدولة منبه بعد 30 ثانية من الآن
+                  await AndroidAlarmManager.oneShot(
+                    const Duration(seconds: 30),
+                    0, // ID مميز للمنبه
+                    myAlarmFunction, // الدالة اللي كتبناها فوق
+                    exact: true,
+                    wakeup: true, // دي أهم حاجة عشان يصحى الشاشة
+                  );
+                  debugPrint("⏰ المنبه اتجدول وهيرن بعد دقيقة!");
+                },
+                child: const Text("Test Alarm"),
+              ),
             ],
           ),
         ),

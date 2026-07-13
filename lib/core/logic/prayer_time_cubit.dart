@@ -43,7 +43,7 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       if (position == null) {
         try {
           position = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.medium,
+            desiredAccuracy: LocationAccuracy.high,
             timeLimit: const Duration(seconds: 30),
           );
           debugPrint('📍 Current position: $position');

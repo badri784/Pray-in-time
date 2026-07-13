@@ -4,7 +4,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 class NextPrayerWidget extends StatelessWidget {
   const NextPrayerWidget({super.key, required this.nextPrayer});
 
-  final String nextPrayer;
+  final String? nextPrayer;
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +13,14 @@ class NextPrayerWidget extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
           color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.7),
-          width: .9,
+          width: .6,
         ),
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(12.r),
         color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.07),
       ),
 
       child: Text(
-        'Next prayer: $nextPrayer',
+        'Next prayer: ${nextPrayer ?? 'Next Day'}',
         style: TextStyle(
           fontSize: 12.sp,
           color: Theme.of(context).colorScheme.secondary,
