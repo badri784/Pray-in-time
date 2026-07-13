@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'prayer_time_state.dart';
+import '../../alarm.dart';
 
 class PrayerTimeCubit extends Cubit<PrayerTimeState> {
   PrayerTimeCubit() : super(PrayerTimeInitial());
@@ -67,6 +68,9 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       final date = DateComponents.from(DateTime.now());
       final prayerTimes = PrayerTimes(myCoordinates, date, params);
       emit(PrayerTimeLoaded(prayerTimes));
+
+      // جدولة المنبهات لأوقات الصلاة القادمة أوتوماتيك
+      await schedulePrayerAlarms(prayerTimes);
     } catch (e, stackTrace) {
       debugPrint('❌ Failed to load prayer times:');
       debugPrint('   Error type: ${e.runtimeType}');
