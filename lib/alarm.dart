@@ -62,7 +62,7 @@ void myAlarmFunction(int id) async {
 
   FlutterRingtonePlayer().play(
     fromAsset: "assets/sound/alarm.mp3",
-    looping: true,
+    looping: false,
     volume: 0.1,
     asAlarm: true,
   );
