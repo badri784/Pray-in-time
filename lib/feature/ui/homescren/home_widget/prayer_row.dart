@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import '../../../../core/utils/responsive_helper.dart';
 import 'package:intl/intl.dart';
 import 'prayer_info.dart';
 
@@ -52,7 +53,7 @@ class PrayerRow extends StatelessWidget {
 
   Widget _buildIcon(ColorScheme colorScheme, Color fadedOnSurface) {
     return Container(
-      padding: EdgeInsets.all(8.sp),
+      padding: EdgeInsets.all(8.clampSp()),
       decoration: BoxDecoration(
         color: isNext
             ? colorScheme.secondary.withValues(alpha: 0.2)
@@ -72,7 +73,7 @@ class PrayerRow extends StatelessWidget {
           passed: fadedOnSurface,
           normal: colorScheme.secondary,
         ),
-        size: 18.sp,
+        size: 18.clampSp(),
       ),
     );
   }
@@ -85,7 +86,7 @@ class PrayerRow extends StatelessWidget {
           Text(
             prayer.name,
             style: TextStyle(
-              fontSize: 15.sp,
+              fontSize: 15.clampSp(),
               fontWeight: isNext ? FontWeight.w700 : FontWeight.w600,
               color: _resolveColor(
                 active: colorScheme.secondary,
@@ -99,7 +100,7 @@ class PrayerRow extends StatelessWidget {
             Text(
               'COMING UP NEXT',
               style: TextStyle(
-                fontSize: 9.sp,
+                fontSize: 9.clampSp(),
                 fontWeight: FontWeight.w800,
                 letterSpacing: 1.2,
                 color: colorScheme.primary,
@@ -119,7 +120,7 @@ class PrayerRow extends StatelessWidget {
     return Text(
       formattedTime,
       style: TextStyle(
-        fontSize: 13.sp,
+        fontSize: 13.clampSp(),
         fontWeight: isNext ? FontWeight.w700 : FontWeight.w500,
         color: _resolveColor(
           active: colorScheme.secondary,
@@ -138,7 +139,7 @@ class PrayerRow extends StatelessWidget {
         passed: colorScheme.onSurface.withValues(alpha: 0.25),
         normal: colorScheme.secondary.withValues(alpha: 0.7),
       ),
-      size: 20.sp,
+      size: 20.clampSp(),
     );
   }
 }

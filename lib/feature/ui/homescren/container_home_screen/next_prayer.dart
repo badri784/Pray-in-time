@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import '../../../../core/utils/responsive_helper.dart';
 
 class NextPrayerWidget extends StatelessWidget {
   const NextPrayerWidget({super.key, required this.nextPrayer});
@@ -22,7 +23,7 @@ class NextPrayerWidget extends StatelessWidget {
       child: Text(
         'Next prayer: ${nextPrayer ?? 'Next Day'}',
         style: TextStyle(
-          fontSize: 12.sp,
+          fontSize: 12.clampSp(),
           color: Theme.of(context).colorScheme.secondary,
         ),
       ),

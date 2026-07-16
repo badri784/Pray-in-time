@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:developer';
 
 import 'package:adhan/adhan.dart';
@@ -38,7 +39,7 @@ class ConrtainerOfNextPrayreBuilder extends StatelessWidget {
           );
         } else {
           return Container(
-            height: 250.h,
+            height: math.min(250.h, 300),
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.r),

@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import '../../../../core/utils/responsive_helper.dart';
 
 class AlarmActive extends StatelessWidget {
   const AlarmActive({super.key});
@@ -7,7 +9,7 @@ class AlarmActive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200.w,
+      width: min(200.w, 280),
       height: 34.h,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
@@ -22,13 +24,16 @@ class AlarmActive extends StatelessWidget {
         children: [
           Icon(
             Icons.notifications,
-            size: 16.sp,
+            size: 16.clampSp(),
             color: Theme.of(context).colorScheme.secondary,
           ),
           const SizedBox(width: 8),
           Text(
             'Mandatory Alarm Active',
-            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 12.clampSp(),
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import '../../../../core/utils/responsive_helper.dart';
 import 'package:intl/intl.dart';
 
 class HomeAppBar extends StatefulWidget {
@@ -32,7 +33,7 @@ class _HomeAppBarState extends State<HomeAppBar>
 
   TextStyle _subtitleStyle(BuildContext context) => TextStyle(
     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-    fontSize: 12.sp,
+    fontSize: 12.clampSp(),
   );
 
   @override
@@ -60,14 +61,14 @@ class _HomeAppBarState extends State<HomeAppBar>
             Icon(
               Icons.access_time,
               color: Theme.of(context).colorScheme.secondary,
-              size: 15.sp,
+              size: 15.clampSp(),
             ),
             SizedBox(width: 4.w),
             Text(
               time,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
-                fontSize: 14.sp,
+                fontSize: 14.clampSp(),
               ),
             ),
           ],
@@ -82,12 +83,12 @@ class _HomeAppBarState extends State<HomeAppBar>
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.location_on, color: colorScheme.secondary, size: 20.sp),
+        Icon(Icons.location_on, color: colorScheme.secondary, size: 20.clampSp()),
         SizedBox(width: 4.w),
         Flexible(
           child: Text(
             'Detected Location,',
-            style: TextStyle(color: colorScheme.onSurface, fontSize: 20.sp),
+            style: TextStyle(color: colorScheme.onSurface, fontSize: 20.clampSp()),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -110,7 +111,7 @@ class _HomeAppBarState extends State<HomeAppBar>
     return GestureDetector(
       onTap: widget.onSettingsTap,
       child: Container(
-        padding: EdgeInsets.all(8.sp),
+        padding: EdgeInsets.all(8.clampSp()),
         decoration: BoxDecoration(
           color: colorScheme.surface,
           borderRadius: BorderRadius.circular(12.r),
@@ -123,7 +124,7 @@ class _HomeAppBarState extends State<HomeAppBar>
           child: Icon(
             Icons.settings,
             color: colorScheme.secondary,
-            size: 24.sp,
+            size: 24.clampSp(),
           ),
         ),
       ),

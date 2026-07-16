@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import '../../core/utils/responsive_helper.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PrayerTimeLoadingWidget extends StatelessWidget {
@@ -15,7 +16,7 @@ class PrayerTimeLoadingWidget extends StatelessWidget {
           children: [
             LoadingAnimationWidget.threeArchedCircle(
               color: Theme.of(context).colorScheme.primary,
-              size: 20.sp,
+              size: 20.clampSp(),
             ),
             SizedBox(height: 10.h),
             Text(text),

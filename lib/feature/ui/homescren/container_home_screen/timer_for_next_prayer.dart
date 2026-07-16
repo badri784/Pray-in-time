@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../../core/utils/responsive_helper.dart';
 
 class TimerForNextPrayer extends StatefulWidget {
   const TimerForNextPrayer({super.key, required this.nextPrayerTime});
@@ -60,7 +61,7 @@ class _TimerForNextPrayerState extends State<TimerForNextPrayer> {
   Widget build(BuildContext context) {
     return Text(
       _formatDuration(_remaining),
-      style: const TextStyle(fontSize: 62, fontWeight: FontWeight.bold),
+      style: TextStyle(fontSize: 48.clampSp(), fontWeight: FontWeight.bold),
     );
   }
 }

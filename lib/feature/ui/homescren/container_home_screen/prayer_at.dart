@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import '../../../../core/utils/responsive_helper.dart';
 import 'package:intl/intl.dart';
 
 class PrayerAtTime extends StatelessWidget {
@@ -18,7 +18,7 @@ class PrayerAtTime extends StatelessWidget {
         Icon(
           Icons.access_time,
           color: Theme.of(context).colorScheme.secondary,
-          size: 20.sp,
+          size: 20.clampSp(),
         ),
         const SizedBox(width: 8),
         RichText(
@@ -26,12 +26,12 @@ class PrayerAtTime extends StatelessWidget {
             children: [
               TextSpan(
                 text: 'Prayer at ',
-                style: TextStyle(fontSize: 14.sp),
+                style: TextStyle(fontSize: 14.clampSp()),
               ),
               TextSpan(
                 text: formateTime(nextPrayerTime ?? DateTime(0)),
                 style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 14.clampSp(),
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.secondary,
                 ),

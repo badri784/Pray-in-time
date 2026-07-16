@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
@@ -19,7 +20,7 @@ class ContainerLoadedPrayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250.h,
+      height: min(250.h, 300),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
