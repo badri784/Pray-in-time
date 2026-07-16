@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'container_home_screen/alarms_armed.dart';
 import 'container_home_screen/container_next_prayer_builder.dart';
 import 'home_widget/daily_prayer.dart';
 import 'home_widget/hijri_date.dart';
@@ -30,22 +31,8 @@ class HomeScreen extends StatelessWidget {
               const DailyPrayerSchedule(),
               SizedBox(height: 8.h),
               const PrayerTimeWidget(),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Pray in Time ',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                      const TextSpan(text: '.. Alarms Armed'),
-                    ],
-                  ),
-                ),
-              ),
+              SizedBox(height: 8.h),
+              const AlarmsArmed(),
             ],
           ),
         ),
