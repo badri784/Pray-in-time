@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/utils/responsive_helper.dart';
 import 'package:intl/intl.dart';
+
+import '../../setting_screen/setting_screen.dart';
 
 class HomeAppBar extends StatefulWidget {
   const HomeAppBar({super.key, this.onSettingsTap});
@@ -36,12 +40,20 @@ class _HomeAppBarState extends State<HomeAppBar>
     fontSize: 12.clampSp(),
   );
 
+  String updateTime() {
+    DateTime time = DateTime.now();
+    Timer.periodic(const Duration(seconds: 1), (_) {
+      time.add(const Duration(seconds: 1));
+    });
+    return DateFormat.jm().format(time);
+  }
+
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
     final formattedDate = DateFormat('MMMM d, yyyy').format(now);
     final weekDay = DateFormat('EEEE').format(now);
-    final time = DateFormat.jm().format(now);
+    // final time = updateTime();
     final colorScheme = Theme.of(context).colorScheme;
 
     return Row(
@@ -65,7 +77,7 @@ class _HomeAppBarState extends State<HomeAppBar>
             ),
             SizedBox(width: 4.w),
             Text(
-              time,
+              updateTime().toString(),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 14.clampSp(),
@@ -83,12 +95,19 @@ class _HomeAppBarState extends State<HomeAppBar>
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.location_on, color: colorScheme.secondary, size: 20.clampSp()),
+        Icon(
+          Icons.location_on,
+          color: colorScheme.secondary,
+          size: 20.clampSp(),
+        ),
         SizedBox(width: 4.w),
         Flexible(
           child: Text(
             'Detected Location,',
-            style: TextStyle(color: colorScheme.onSurface, fontSize: 20.clampSp()),
+            style: TextStyle(
+              color: colorScheme.onSurface,
+              fontSize: 20.clampSp(),
+            ),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -109,7 +128,12 @@ class _HomeAppBarState extends State<HomeAppBar>
 
   Widget _buildSettingsButton(ColorScheme colorScheme) {
     return GestureDetector(
-      onTap: widget.onSettingsTap,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SettingScreen()),
+        );
+      },
       child: Container(
         padding: EdgeInsets.all(8.clampSp()),
         decoration: BoxDecoration(

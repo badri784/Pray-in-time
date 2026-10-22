@@ -40,7 +40,7 @@ Future<void> schedulePrayerAlarms(PrayerTimes prayerTimes) async {
         id,
         myAlarmFunction,
         exact: true,
-        wakeup: true,
+        wakeup: false,
       );
       debugPrint(
         '⏰ تم جدولة منبه ${prayerNames[id]} في ${time.hour}:${time.minute.toString().padLeft(2, '0')}',

@@ -17,6 +17,8 @@ class PrayerTimeErrorWidget extends StatelessWidget {
         border: Border.all(color: Colors.red.shade200),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Icon(Icons.location_off, color: Colors.red, size: 30),
           const SizedBox(height: 10),

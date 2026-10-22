@@ -21,7 +21,7 @@ class NextPrayerWidget extends StatelessWidget {
       ),
 
       child: Text(
-        'Next prayer: ${nextPrayer ?? 'Next Day'}',
+        'Next prayer: ${nextPrayer ?? 'Fajr'}',
         style: TextStyle(
           fontSize: 12.clampSp(),
           color: Theme.of(context).colorScheme.secondary,

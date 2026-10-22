@@ -14,6 +14,17 @@ class TimerForNextPrayer extends StatefulWidget {
 class _TimerForNextPrayerState extends State<TimerForNextPrayer> {
   late Duration _remaining;
   Timer? _timer;
+  bool isDayEnd = false;
+  bool salahIsNow = false;
+
+  String dayEndAndNextPrayer(DateTime date) {
+    DateTime now = DateTime.now();
+    if (date.isAfter(now)) {
+      return _formatDuration(_remaining);
+    } else {
+      return dayEndAndNextPrayer(date.add(const Duration(days: 1)));
+    }
+  }
 
   @override
   void initState() {
@@ -28,7 +39,9 @@ class _TimerForNextPrayerState extends State<TimerForNextPrayer> {
   void didUpdateWidget(TimerForNextPrayer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.nextPrayerTime != widget.nextPrayerTime) {
-      _updateRemaining();
+      setState(() {
+        _updateRemaining();
+      });
     }
   }
 
@@ -36,16 +49,17 @@ class _TimerForNextPrayerState extends State<TimerForNextPrayer> {
     final now = DateTime.now();
     final target = widget.nextPrayerTime;
     if (target == null || target.isBefore(now)) {
-      setState(() => _remaining = Duration.zero);
+      setState(() {
+        //if now is after the next prayer time , then it is the next prayer time
+        _remaining = Duration.zero;
+        isDayEnd = true;
+      });
     } else {
-      setState(() => _remaining = target.difference(now));
+      setState(() {
+        _remaining = target.difference(now);
+        isDayEnd = false;
+      });
     }
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
   }
 
   String _formatDuration(Duration d) {
@@ -55,6 +69,12 @@ class _TimerForNextPrayerState extends State<TimerForNextPrayer> {
     return '${hours.toString().padLeft(2, '0')}:'
         '${minutes.toString().padLeft(2, '0')}:'
         '${seconds.toString().padLeft(2, '0')}';
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override

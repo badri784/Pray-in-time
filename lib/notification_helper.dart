@@ -4,9 +4,7 @@ class NotificationHelper {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  
   static Future<void> init() async {
-    
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -18,7 +16,6 @@ class NotificationHelper {
     );
   }
 
-  
   static Future<void> requestPermission() async {
     final androidPlugin = flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -29,20 +26,19 @@ class NotificationHelper {
     }
   }
 
-  
-  static Future<void> showAlarmNotification({String prayerName = 'الصلاة'}) async {
+  static Future<void> showAlarmNotification({
+    String prayerName = 'الصلاة',
+  }) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-          'alarm_channel_id', 
-          'إشعارات الصلاة', 
+          'alarm_channel_id',
+          'إشعارات الصلاة',
           channelDescription: 'قناة التنبيهات لأوقات الصلاة',
-          importance: Importance.max, 
-          priority: Priority.max, 
-          fullScreenIntent: true, 
-          visibility: NotificationVisibility
-              .public, 
-          playSound:
-              false, 
+          importance: Importance.high,
+          priority: Priority.high,
+          fullScreenIntent: false,
+          visibility: NotificationVisibility.public,
+          playSound: false,
           enableVibration: true,
         );
 
@@ -50,7 +46,7 @@ class NotificationHelper {
       android: androidPlatformChannelSpecifics,
     );
     await flutterLocalNotificationsPlugin.show(
-      id: 0, 
+      id: 0,
       title: 'حان وقت صلاة $prayerName',
       body: 'حيّ على الصلاة 🕌',
       notificationDetails: platformChannelSpecifics,

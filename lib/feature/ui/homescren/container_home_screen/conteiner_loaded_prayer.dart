@@ -48,7 +48,10 @@ class ContainerLoadedPrayer extends StatelessWidget {
           const Spacer(),
           TimerForNextPrayer(nextPrayerTime: nextPrayerTime),
           const Spacer(),
-          PrayerAtTime(nextPrayerTime: nextPrayerTime),
+          PrayerAtTime(
+            nextPrayerTimes: nextPrayerTime!,
+            nextPrayer: nextPrayer,
+          ),
           const Spacer(),
           const AlarmActive(),
           const Spacer(),
