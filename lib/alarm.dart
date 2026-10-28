@@ -36,11 +36,11 @@ Future<void> schedulePrayerAlarms(PrayerTimes prayerTimes) async {
 
       await AndroidAlarmManager.cancel(id);
       await AndroidAlarmManager.oneShotAt(
-        time,
+        DateTime.now().add(const Duration(seconds: 10)),
         id,
         myAlarmFunction,
         exact: true,
-        wakeup: false,
+        wakeup: true,
       );
       debugPrint(
         '⏰ تم جدولة منبه ${prayerNames[id]} في ${time.hour}:${time.minute.toString().padLeft(2, '0')}',
@@ -59,8 +59,7 @@ void myAlarmFunction(int id) async {
   final prayerName = prefs.getString('prayer_name_$id') ?? 'الصلاة';
   await NotificationHelper.init();
   await NotificationHelper.showAlarmNotification(prayerName: prayerName);
-
-  FlutterRingtonePlayer().play(
+  await FlutterRingtonePlayer().play(
     fromAsset: "assets/sound/alarm.mp3",
     looping: false,
     volume: 0.1,

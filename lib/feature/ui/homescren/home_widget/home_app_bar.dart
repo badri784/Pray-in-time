@@ -18,23 +18,6 @@ class HomeAppBar extends StatefulWidget {
 
 class _HomeAppBarState extends State<HomeAppBar>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _settingsAnimController;
-
-  @override
-  void initState() {
-    super.initState();
-    _settingsAnimController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 4),
-    )..repeat();
-  }
-
-  @override
-  void dispose() {
-    _settingsAnimController.dispose();
-    super.dispose();
-  }
-
   TextStyle _subtitleStyle(BuildContext context) => TextStyle(
     color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
     fontSize: 12.clampSp(),
@@ -140,16 +123,10 @@ class _HomeAppBarState extends State<HomeAppBar>
           color: colorScheme.surface,
           borderRadius: BorderRadius.circular(12.r),
         ),
-        child: RotationTransition(
-          turns: CurvedAnimation(
-            parent: _settingsAnimController,
-            curve: Curves.linear,
-          ),
-          child: Icon(
-            Icons.settings,
-            color: colorScheme.secondary,
-            size: 24.clampSp(),
-          ),
+        child: Icon(
+          Icons.settings,
+          color: colorScheme.secondary,
+          size: 24.clampSp(),
         ),
       ),
 

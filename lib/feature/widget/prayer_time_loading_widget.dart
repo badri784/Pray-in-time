@@ -26,3 +26,4 @@ class PrayerTimeLoadingWidget extends StatelessWidget {
     );
   }
 }
+ 

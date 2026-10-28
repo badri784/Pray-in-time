@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationHelper {
@@ -17,10 +18,11 @@ class NotificationHelper {
   }
 
   static Future<void> requestPermission() async {
-    final androidPlugin = flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin
-        >();
+    final AndroidFlutterLocalNotificationsPlugin? androidPlugin =
+        flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin
+            >();
     if (androidPlugin != null) {
       await androidPlugin.requestNotificationsPermission();
     }
@@ -34,14 +36,15 @@ class NotificationHelper {
           'alarm_channel_id',
           'إشعارات الصلاة',
           channelDescription: 'قناة التنبيهات لأوقات الصلاة',
-          importance: Importance.high,
-          priority: Priority.high,
+          importance: Importance.max,
+          priority: Priority.max,
           fullScreenIntent: false,
           visibility: NotificationVisibility.public,
-          playSound: false,
           enableVibration: true,
+          icon: "@drawable/ic_app_notification",
+          color: Color(0xFFFFAB00),
+          autoCancel: true,
         );
-
     const NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
     );

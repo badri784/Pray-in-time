@@ -3,6 +3,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/theming/app_color.dart';
 import '../../../../core/utils/responsive_helper.dart';
 import 'ambr_container.dart';
 import 'driver_widget.dart';
@@ -25,14 +26,48 @@ class AlarmAndNofiticationSection extends StatelessWidget {
           ),
         ),
         Gap(12.h),
-        Container(
-          decoration: BoxDecoration(
-            color: const Color(0xff121829),
-            borderRadius: BorderRadius.circular(12.r),
-          ),
+        Material(
+          color: const Color(0xff121829),
+          borderRadius: BorderRadius.circular(12.r),
           child: Column(
             children: [
               ListTileSetting(
+                ontap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(
+                        'Adhan Sounds',
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      content: Text(
+                        'Comming Soon...',
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'OK',
+                            style: GoogleFonts.inter(
+                              color: AppColors.primaryEmerald,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 text: 'Adhan Sounds',
                 textStyle: GoogleFonts.inter(
                   color: Colors.white,

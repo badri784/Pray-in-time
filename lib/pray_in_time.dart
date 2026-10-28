@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'core/Route/app_router.dart';
+import 'core/Route/route.dart';
 import 'core/logic/prayer_time_cubit.dart';
 import 'core/theming/app_theme.dart';
-import 'feature/ui/homescren/home_screen.dart';
 
 class PrayerInTimeApp extends StatelessWidget {
-  const PrayerInTimeApp({super.key});
-
+  const PrayerInTimeApp({super.key ,required this.appRouter});
+  final AppRouter appRouter;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -35,7 +36,8 @@ class PrayerInTimeApp extends StatelessWidget {
                 theme: AppTheme.lightTheme,
                 darkTheme: AppTheme.darkTheme,
                 themeMode: ThemeMode.dark,
-                home: const HomeScreen(),
+                initialRoute: AppRoutes.notificationAccess,
+                onGenerateRoute: appRouter.generateRoute,
               ),
             );
           },
