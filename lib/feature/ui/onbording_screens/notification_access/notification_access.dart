@@ -52,7 +52,7 @@ class NotificationAccess extends StatelessWidget {
                           if (!context.mounted) {
                             return;
                           }
-                          context.pushReplacementName(AppRoutes.locationAccess);
+                          context.pushReplacementName(Routes.locationAccess);
                         },
                       ),
                     ],

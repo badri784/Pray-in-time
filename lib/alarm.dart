@@ -33,7 +33,6 @@ Future<void> schedulePrayerAlarms(PrayerTimes prayerTimes) async {
 
     if (time.isAfter(now)) {
       await prefs.setString('prayer_name_$id', prayerNames[id]!);
-
       await AndroidAlarmManager.cancel(id);
       await AndroidAlarmManager.oneShotAt(
         DateTime.now().add(const Duration(seconds: 10)),

@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyActions: false,
         toolbarHeight: 75,
         title: const HomeAppBar(),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

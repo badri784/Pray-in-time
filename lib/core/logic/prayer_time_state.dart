@@ -11,6 +11,10 @@ class PrayerTimeLoaded extends PrayerTimeState {
   final PrayerTimes prayerTimes;
 }
 
+class LoactionPermissionGranted extends PrayerTimeState{
+  
+}
+
 class PrayerTimeError extends PrayerTimeState {
   PrayerTimeError(this.message);
   final String message;

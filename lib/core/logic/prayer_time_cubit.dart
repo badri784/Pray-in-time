@@ -9,36 +9,42 @@ import '../../alarm.dart';
 
 class PrayerTimeCubit extends Cubit<PrayerTimeState> {
   PrayerTimeCubit() : super(PrayerTimeInitial());
-
+  Future<void> getLoactionPermisons() async {
+     bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      debugPrint('❌ Location services are disabled.');
+      emit(
+        PrayerTimeError(
+          'Location services are disabled, please turn on location permissions',
+        ),
+      );
+      return;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        debugPrint('❌ Location permissions are denied.');
+        emit(PrayerTimeError('Location permissions are denied'));
+        return;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      debugPrint('❌ Location permissions are permanently denied.');
+      emit(
+        PrayerTimeError(
+          'Location permissions are permanently denied, we cannot request permissions.',
+        ),
+      );
+      return;
+    }
+  }
   Future<void> getPrayerTimes() async {
     emit(PrayerTimeLoading());
+
     try {
-      bool serviceEnabled;
-      LocationPermission permission;
-      serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) {
-        debugPrint('❌ Location services are disabled.');
-        emit(PrayerTimeError('Location services are disabled.'));
-        return;
-      }
-      permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          debugPrint('❌ Location permissions are denied.');
-          emit(PrayerTimeError('Location permissions are denied'));
-          return;
-        }
-      }
-      if (permission == LocationPermission.deniedForever) {
-        debugPrint('❌ Location permissions are permanently denied.');
-        emit(
-          PrayerTimeError(
-            'Location permissions are permanently denied, we cannot request permissions.',
-          ),
-        );
-        return;
-      }
       Position? position = await Geolocator.getLastKnownPosition();
       debugPrint('📍 Last known position: $position');
       if (position == null) {
@@ -69,7 +75,6 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       final prayerTimes = PrayerTimes(myCoordinates, date, params);
       emit(PrayerTimeLoaded(prayerTimes));
 
-      // جدولة المنبهات لأوقات الصلاة القادمة أوتوماتيك
       await schedulePrayerAlarms(prayerTimes);
     } catch (e, stackTrace) {
       debugPrint('❌ Failed to load prayer times:');

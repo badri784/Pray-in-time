@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/Route/route.dart';
+import '../../../../core/helper/extensionss.dart';
+import '../../../../core/logic/prayer_time_cubit.dart';
+import '../../../../core/logic/prayer_time_state.dart';
 import '../notification_access/widget/allow_notification_button.dart';
 import '../notification_access/widget/notification_access_header.dart';
 import 'widget/location_access_background.dart';
@@ -26,7 +32,7 @@ class LoactionAccess extends StatelessWidget {
             Positioned(
               left: 0,
               right: 0,
-              bottom: 180,
+              bottom: 120,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -35,9 +41,49 @@ class LoactionAccess extends StatelessWidget {
                   children: [
                     const LocationAccessTexts(),
                     const SizedBox(height: 8),
-                    AllowButtonWidget(
-                      text: 'Enaple Location Access',
-                      onpressed: () {},
+                    BlocConsumer<PrayerTimeCubit, PrayerTimeState>(
+                      builder: (context, state) {
+                        if (state is PrayerTimeLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return AllowButtonWidget(
+                          text: 'Enaple Location Access',
+                          onpressed: () async {
+                            final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            await prefs.setBool('isFirstLaunch', false);
+                            await context
+                                .read<PrayerTimeCubit>()
+                                .getLoactionPermisons();
+                            if (!context.mounted) return;
+                            context.pushReplacementName(Routes.homeScreen);
+                          },
+                        );
+                      },
+                      listener: (context, state) async {
+                        if (state is LoactionPermissionGranted) {
+                          // final SharedPreferences prefs =
+                          //     await SharedPreferences.getInstance();
+                          // await prefs.setBool('isFirstLaunch', false);
+                          context.pushReplacementName(Routes.homeScreen);
+                        }
+                        if (state is PrayerTimeError) {
+                          SnackBar(content: Text(state.message));
+                        }
+                        const SizedBox.shrink();
+                        // AllowButtonWidget(
+                        //   text: 'Enaple Location Access',
+                        //   onpressed: () async {
+                        //     await context
+                        //         .read<PrayerTimeCubit>()
+                        //         .getLoactionPermisons();
+                        //     if (!context.mounted) return;
+                        //     context.pushReplacementName(Routes.homeScreen);
+                        //   },
+                        // );
+                      },
                     ),
                   ],
                 ),
