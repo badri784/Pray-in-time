@@ -19,6 +19,7 @@ class LoactionAccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<PrayerTimeCubit>();
     return Scaffold(
       backgroundColor: const Color(0xff090b15),
       body: SafeArea(
@@ -54,11 +55,9 @@ class LoactionAccess extends StatelessWidget {
                             final SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
                             await prefs.setBool('isFirstLaunch', false);
-                            await context
-                                .read<PrayerTimeCubit>()
-                                .getLoactionPermisons();
+                            await cubit.getLoactionPermisons();
                             if (!context.mounted) return;
-                            context.pushReplacementName(Routes.homeScreen);
+                            context.pushAndRemoveUntilname(Routes.homeScreen);
                           },
                         );
                       },

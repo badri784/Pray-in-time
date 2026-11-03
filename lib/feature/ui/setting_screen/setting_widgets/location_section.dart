@@ -30,7 +30,7 @@ class LocationSection extends StatelessWidget {
             text: 'Cuttent Location',
             subtitle: 'Cairo, Egypt,\nAuto Detect',
             leading: const AmberContainer(icon: Icons.location_on),
-            trailing: const Icon(Icons.arrow_drop_down),
+            trailing: const Icon(Icons.done_sharp),
             textStyle: GoogleFonts.inter(
               color: Colors.white,
               fontSize: 15.sp,

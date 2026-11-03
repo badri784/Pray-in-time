@@ -13,7 +13,7 @@ class AppRouter {
       case Routes.locationAccess:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => PrayerTimeCubit()..getLoactionPermisons(),
+            create: (context) => PrayerTimeCubit(),
             child: const LoactionAccess(),
           ),
         );

@@ -47,8 +47,27 @@ class NotificationAccess extends StatelessWidget {
                       AllowButtonWidget(
                         text: 'Allow notifications',
                         onpressed: () async {
-                          await NotificationHelper.init();
-                          await NotificationHelper.requestPermission();
+                          try {
+                            await NotificationHelper.init();
+                            await NotificationHelper.requestPermission();
+                          } catch (e) {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text(
+                                  'Notification permission error: $e',
+                                ),
+                                actions: [
+                                  IconButton(
+                                    onPressed: () {
+                                      context.pop();
+                                    },
+                                    icon: const Icon(Icons.done),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                           if (!context.mounted) {
                             return;
                           }

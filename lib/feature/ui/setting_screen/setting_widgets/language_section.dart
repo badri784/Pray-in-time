@@ -3,6 +3,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/theming/app_color.dart';
 import 'ambr_container.dart';
 import 'settings_listtile.dart';
 
@@ -27,6 +28,42 @@ class LanguageSection extends StatelessWidget {
           color: const Color(0xff121829),
           borderRadius: BorderRadius.circular(12.r),
           child: ListTileSetting(
+            ontap: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(
+                    'Adhan Sounds',
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  content: Text(
+                    'Comming Soon...',
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'OK',
+                        style: GoogleFonts.inter(
+                          color: AppColors.primaryEmerald,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
             text: 'Language',
             subtitle: 'English/العربية',
             trailing: Icon(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:gap/gap.dart';
 import 'container_home_screen/alarms_armed.dart';
 import 'container_home_screen/container_next_prayer_builder.dart';
 import 'home_widget/daily_prayer.dart';
@@ -14,7 +15,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyActions: false,
         toolbarHeight: 75,
         title: const HomeAppBar(),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -26,13 +26,16 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const HijriDateWidget(),
-              SizedBox(height: 25.h),
+
+              Gap(25.h),
               const ConrtainerOfNextPrayreBuilder(),
-              SizedBox(height: 8.h),
+
+              Gap(8.h),
               const DailyPrayerSchedule(),
-              SizedBox(height: 8.h),
+              Gap(8.h),
+
               const PrayerTimeWidget(),
-              SizedBox(height: 8.h),
+              Gap(8.h),
               const AlarmsArmed(),
             ],
           ),
