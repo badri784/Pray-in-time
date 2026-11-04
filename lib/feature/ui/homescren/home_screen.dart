@@ -26,14 +26,11 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const HijriDateWidget(),
-
               Gap(25.h),
               const ConrtainerOfNextPrayreBuilder(),
-
               Gap(8.h),
               const DailyPrayerSchedule(),
               Gap(8.h),
-
               const PrayerTimeWidget(),
               Gap(8.h),
               const AlarmsArmed(),

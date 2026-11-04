@@ -27,7 +27,7 @@ class LocationSection extends StatelessWidget {
           color: const Color(0xff121829),
           borderRadius: BorderRadius.circular(12.r),
           child: ListTileSetting(
-            text: 'Cuttent Location',
+            text: 'Current Location',
             subtitle: 'Cairo, Egypt,\nAuto Detect',
             leading: const AmberContainer(icon: Icons.location_on),
             trailing: const Icon(Icons.done_sharp),

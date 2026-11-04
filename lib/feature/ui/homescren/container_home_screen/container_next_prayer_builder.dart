@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math' hide log;
 
 import 'package:adhan/adhan.dart';
@@ -51,12 +50,11 @@ class ConrtainerOfNextPrayreBuilder extends StatelessWidget {
         if (state is PrayerTimeLoaded) {
           final PrayerTimes prayerTimes = state.prayerTimes;
           final String nextPrayer = prayerTimes.nextPrayer().name;
+        
           final DateTime? nextPrayerTime = prayerTimes.timeForPrayer(
             prayerTimes.nextPrayer(),
           );
-          log(
-            'nextPrayerTime in ConrtainerOfNextPrayreBuilder: $nextPrayerTime',
-          );
+
           return Container(
             height: min(250.h, 300),
             width: double.infinity,

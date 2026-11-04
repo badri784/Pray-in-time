@@ -11,6 +11,7 @@ class NextPrayerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.w),
+
       decoration: BoxDecoration(
         border: Border.all(
           color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.7),
@@ -20,13 +21,21 @@ class NextPrayerWidget extends StatelessWidget {
         color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.07),
       ),
 
-      child: Text(
-        'Next prayer: ${nextPrayer ?? 'Fajr'}',
-        style: TextStyle(
-          fontSize: 12.clampSp(),
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-      ),
+      child: nextPrayer == 'none'
+          ? Text(
+              'Next Prayer: Fajr',
+              style: TextStyle(
+                fontSize: 13.clampSp(),
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            )
+          : Text(
+              'Next Prayer: $nextPrayer',
+              style: TextStyle(
+                fontSize: 13.clampSp(),
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
     );
   }
 }
