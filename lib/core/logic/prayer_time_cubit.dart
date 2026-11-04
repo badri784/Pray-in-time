@@ -1,15 +1,25 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:adhan/adhan.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../alarm.dart';
 import 'prayer_time_state.dart';
 
 class PrayerTimeCubit extends Cubit<PrayerTimeState> {
   PrayerTimeCubit() : super(PrayerTimeInitial());
+
+  static const String errLocationDisabled = 'location_disabled';
+  static const String errLocationDenied = 'location_denied';
+  static const String errLocationPermanentlyDenied =
+      'location_permanently_denied';
+  static const String errLoadCity = 'load_city_error';
+  static const String errLoadPrayerTimes = 'load_prayer_times_error';
 
   Future<void> getLoactionPermisons() async {
     bool serviceEnabled;
@@ -17,11 +27,7 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       debugPrint('Location services are disabled.');
-      emit(
-        PrayerTimeError(
-          'Location services are disabled, please turn on location permissions',
-        ),
-      );
+      emit(PrayerTimeError(errLocationDisabled));
       return;
     }
     permission = await Geolocator.checkPermission();
@@ -29,19 +35,49 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         debugPrint('❌ Location permissions are denied.');
-        emit(PrayerTimeError('Location permissions are denied'));
+        emit(PrayerTimeError(errLocationDenied));
         return;
       }
     }
     if (permission == LocationPermission.deniedForever) {
       debugPrint('Location permissions are permanently denied.');
-      emit(
-        PrayerTimeError(
-          'Location permissions are permanently denied, we cannot request permissions.',
-        ),
-      );
+      emit(PrayerTimeError(errLocationPermanentlyDenied));
       return;
     }
+  }
+
+  Future<void> saveCityName(String cityName) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('cityName', cityName);
+    } catch (e) {
+      debugPrint('Failed to save city name: $e');
+      emit(PrayerTimeError(errLoadCity));
+    }
+  }
+
+  Future<String> getCityName(double lat, double lon) async {
+    try {
+      final Geocoding geocoding = Geocoding();
+      final List<Placemark> placemarks = await geocoding
+          .placemarkFromCoordinates(lat, lon);
+
+      if (placemarks.isNotEmpty) {
+        final Placemark place = placemarks.first;
+        final String area = place.administrativeArea ?? '';
+        final String country = place.country ?? '';
+        if (area.isNotEmpty && country.isNotEmpty) {
+          return '$area, $country';
+        } else if (area.isNotEmpty) {
+          return area;
+        } else if (country.isNotEmpty) {
+          return country;
+        }
+      }
+    } catch (e) {
+      return '';
+    }
+    return '';
   }
 
   Future<void> getPrayerTimes() async {
@@ -78,10 +114,19 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       }
 
       final Coordinates myCoordinates;
+
       if (position != null) {
         await prefs.setDouble('saved_lat', position.latitude);
         await prefs.setDouble('saved_lng', position.longitude);
         myCoordinates = Coordinates(position.latitude, position.longitude);
+        final String cityName = await getCityName(
+          position.latitude,
+          position.longitude,
+        );
+        log('City Name Of User: $cityName');
+        if (cityName.isNotEmpty) {
+          await saveCityName(cityName);
+        }
       } else if (savedLat != null && savedLng != null) {
         myCoordinates = Coordinates(savedLat, savedLng);
       } else {
@@ -101,7 +146,7 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       }
     } catch (e, stackTrace) {
       debugPrint('❌ Failed to load prayer times: $e\n$stackTrace');
-      emit(PrayerTimeError('Failed to load prayer times: $e'));
+      emit(PrayerTimeError(errLoadPrayerTimes));
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../feature/ui/homescren/home_screen.dart';
 import '../../feature/ui/onbording_screens/location_access/loaction_access.dart';
 import '../../feature/ui/onbording_screens/notification_access/notification_access.dart';
+import '../localization/l10n_extension.dart';
 import '../logic/prayer_time_cubit.dart';
 import 'route.dart';
 
@@ -30,9 +31,9 @@ class AppRouter {
         );
       default:
         return MaterialPageRoute(
-          builder: (context) => const Scaffold(
+          builder: (context) => Scaffold(
             body: Center(
-              child: Text('there is no route here please try agine'),
+              child: Text(context.l10n.routeNotFound),
             ),
           ),
         );

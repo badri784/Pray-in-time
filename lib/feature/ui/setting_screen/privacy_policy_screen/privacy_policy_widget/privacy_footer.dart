@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../../core/localization/l10n_extension.dart';
 
 class PrivacyFooter extends StatelessWidget {
   const PrivacyFooter({
     super.key,
-    this.version = 'Pray in Time • Version 1.0.0',
-    this.lastUpdated = 'Last Updated: October 2026',
+    this.version,
+    this.lastUpdated,
   });
 
-  final String version;
-  final String lastUpdated;
+  final String? version;
+  final String? lastUpdated;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final secondaryColor = Theme.of(context).colorScheme.secondary;
 
     return Center(
       child: Column(
         children: [
           Text(
-            version,
-            style: GoogleFonts.inter(
+            version ?? l10n.privacyFooterVersion,
+            style: context.adaptiveFont(
               color: secondaryColor,
               fontSize: 13.sp,
               fontWeight: FontWeight.w600,
@@ -30,9 +32,9 @@ class PrivacyFooter extends StatelessWidget {
           ),
           const Gap(4),
           Text(
-            lastUpdated,
-            style: GoogleFonts.inter(
-              color: Colors.white.withOpacity(0.4),
+            lastUpdated ?? l10n.privacyLastUpdated,
+            style: context.adaptiveFont(
+              color: Colors.white.withValues(alpha: 0.4),
               fontSize: 12.sp,
             ),
           ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/localization/l10n_extension.dart';
 import '../../../../core/theming/app_color.dart';
 import '../../../../core/utils/responsive_helper.dart';
 import 'ambr_container.dart';
@@ -13,13 +13,14 @@ class AlarmAndNofiticationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'ALARM & NOTIFICATION',
-          style: GoogleFonts.inter(
-            color: Colors.white.withOpacity(0.4),
+          l10n.alarmAndNotificationSection,
+          style: context.adaptiveFont(
+            color: Colors.white.withValues(alpha: 0.4),
             fontSize: 12.sp,
             fontWeight: FontWeight.w400,
           ),
@@ -34,18 +35,18 @@ class AlarmAndNofiticationSection extends StatelessWidget {
                 ontap: () {
                   showDialog(
                     context: context,
-                    builder: (context) => AlertDialog(
+                    builder: (dialogContext) => AlertDialog(
                       title: Text(
-                        'Adhan Sounds',
-                        style: GoogleFonts.inter(
+                        l10n.adhanSounds,
+                        style: dialogContext.adaptiveFont(
                           color: Colors.white,
                           fontSize: 15.sp,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       content: Text(
-                        'Comming Soon...',
-                        style: GoogleFonts.inter(
+                        l10n.comingSoon,
+                        style: dialogContext.adaptiveFont(
                           color: Colors.white,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
@@ -54,12 +55,13 @@ class AlarmAndNofiticationSection extends StatelessWidget {
                       actions: [
                         TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.pop(dialogContext);
                           },
                           child: Text(
-                            'OK',
-                            style: GoogleFonts.inter(
+                            l10n.okButton,
+                            style: dialogContext.adaptiveFont(
                               color: AppColors.primaryEmerald,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -67,15 +69,15 @@ class AlarmAndNofiticationSection extends StatelessWidget {
                     ),
                   );
                 },
-                text: 'Adhan Sounds',
-                textStyle: GoogleFonts.inter(
+                text: l10n.adhanSounds,
+                textStyle: context.adaptiveFont(
                   color: Colors.white,
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w400,
                 ),
-                subtitle: 'Default',
-                subtitleStyle: GoogleFonts.inter(
-                  color: Colors.white.withOpacity(0.4),
+                subtitle: l10n.defaultOption,
+                subtitleStyle: context.adaptiveFont(
+                  color: Colors.white.withValues(alpha: 0.4),
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                 ),
@@ -96,14 +98,14 @@ class AlarmAndNofiticationSection extends StatelessWidget {
               //     fontSize: 15.sp,
               //     fontWeight: FontWeight.w400,
               //   ),
-
+              //
               //   subtitle: 'Default',
               //   subtitleStyle: GoogleFonts.inter(
               //     color: Colors.white.withOpacity(0.4),
               //     fontSize: 12.sp,
               //     fontWeight: FontWeight.w400,
               //   ),
-
+              //
               //   trailing: Icon(
               //     Icons.arrow_drop_down,
               //     color: Theme.of(context).colorScheme.secondary,

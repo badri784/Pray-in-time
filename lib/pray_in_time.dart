@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+
 import 'core/Route/app_router.dart';
 import 'core/Route/route.dart';
+import 'core/localization/l10n_extension.dart';
+import 'core/localization/locale_cubit.dart';
 import 'core/theming/app_theme.dart';
 
 class PrayerInTimeApp extends StatelessWidget {
-  const PrayerInTimeApp({super.key, required this.appRouter, required this.isFirstLaunch});
+  const PrayerInTimeApp({
+    super.key,
+    required this.appRouter,
+    required this.isFirstLaunch,
+  });
+
   final AppRouter appRouter;
   final bool isFirstLaunch;
 
@@ -23,16 +32,24 @@ class PrayerInTimeApp extends StatelessWidget {
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (context, child) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Prayer in Time',
-              theme: AppTheme.lightTheme,
-              darkTheme: AppTheme.darkTheme,
-              themeMode: ThemeMode.dark,
-              initialRoute: isFirstLaunch
-                  ? Routes.notificationAccess
-                  : Routes.homeScreen,
-              onGenerateRoute: appRouter.generateRoute,
+            return BlocBuilder<LocaleCubit, Locale>(
+              builder: (context, locale) {
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  onGenerateTitle: (ctx) => ctx.l10n.appTitle,
+                  locale: locale,
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  theme: AppTheme.lightTheme(locale),
+                  darkTheme: AppTheme.darkTheme(locale),
+                  themeMode: ThemeMode.dark,
+                  initialRoute: isFirstLaunch
+                      ? Routes.notificationAccess
+                      : Routes.homeScreen,
+                  onGenerateRoute: appRouter.generateRoute,
+                );
+              },
             );
           },
         );

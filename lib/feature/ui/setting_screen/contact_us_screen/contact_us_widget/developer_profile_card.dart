@@ -3,24 +3,26 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../core/localization/l10n_extension.dart';
 import '../../../../../core/theming/app_color.dart';
 
 class DeveloperProfileCard extends StatelessWidget {
   const DeveloperProfileCard({
     super.key,
-    this.name = 'Ahmed Salah',
-    this.role = 'Software Engineer • Pray in Time',
-    this.bio = 'Have questions, feedback, or need help? Feel free to reach out anytime.',
+    this.name,
+    this.role,
+    this.bio,
     this.initials = 'AS',
   });
 
-  final String name;
-  final String role;
-  final String bio;
+  final String? name;
+  final String? role;
+  final String? bio;
   final String initials;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final accentColor = Theme.of(context).colorScheme.secondary;
 
     return Container(
@@ -30,7 +32,7 @@ class DeveloperProfileCard extends StatelessWidget {
         color: const Color(0xff121829),
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: accentColor.withOpacity(0.2),
+          color: accentColor.withValues(alpha: 0.2),
           width: 1,
         ),
       ),
@@ -67,8 +69,8 @@ class DeveloperProfileCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
-                  style: GoogleFonts.inter(
+                  name ?? l10n.developerName,
+                  style: context.adaptiveFont(
                     color: Colors.white,
                     fontSize: 17.sp,
                     fontWeight: FontWeight.w700,
@@ -76,8 +78,8 @@ class DeveloperProfileCard extends StatelessWidget {
                 ),
                 const Gap(4),
                 Text(
-                  role,
-                  style: GoogleFonts.inter(
+                  role ?? l10n.developerRole,
+                  style: context.adaptiveFont(
                     color: accentColor,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
@@ -85,9 +87,9 @@ class DeveloperProfileCard extends StatelessWidget {
                 ),
                 const Gap(6),
                 Text(
-                  bio,
-                  style: GoogleFonts.inter(
-                    color: Colors.white.withOpacity(0.65),
+                  bio ?? l10n.developerBio,
+                  style: context.adaptiveFont(
+                    color: Colors.white.withValues(alpha: 0.65),
                     fontSize: 12.sp,
                     height: 1.35,
                   ),

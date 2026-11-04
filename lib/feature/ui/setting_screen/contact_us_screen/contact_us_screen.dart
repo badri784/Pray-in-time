@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/localization/l10n_extension.dart';
 import '../../../../core/theming/app_color.dart';
 import '../../../../core/utils/responsive_helper.dart';
 import '../setting_widgets/ambr_container.dart';
@@ -19,7 +19,8 @@ class ContactUsScreen extends StatelessWidget {
   static const String _phoneNumber = '01500730240';
   static const String _whatsappNumber = '201500730240';
   static const String _emailAddress = 'aelbadri23@gmail.com';
-  static const String _linkedinUrl = 'https://www.linkedin.com/in/ahmed-salah-g63/';
+  static const String _linkedinUrl =
+      'https://www.linkedin.com/in/ahmed-salah-g63/';
 
   Future<void> _launchUri(Uri uri, BuildContext context) async {
     try {
@@ -31,7 +32,7 @@ class ContactUsScreen extends StatelessWidget {
       }
     } catch (_) {
       if (context.mounted) {
-        _showSnackBar(context, 'Could not launch action. Please try again.');
+        _showSnackBar(context, context.l10n.couldNotLaunchAction);
       }
     }
   }
@@ -42,7 +43,7 @@ class ContactUsScreen extends StatelessWidget {
   }
 
   void _openWhatsApp(BuildContext context) {
-    const text = "Assalamu Alaikum Ahmed,\nI'm contacting you regarding the Pray in Time app.";
+    final text = context.l10n.whatsappDefaultMessage;
     final uri = Uri.parse(
       'https://wa.me/$_whatsappNumber?text=${Uri.encodeComponent(text)}',
     );
@@ -54,7 +55,7 @@ class ContactUsScreen extends StatelessWidget {
       scheme: 'mailto',
       path: _emailAddress,
       queryParameters: {
-        'subject': subject ?? 'Pray in Time Support & Feedback',
+        'subject': subject ?? context.l10n.emailDefaultSubject,
         if (body != null && body.isNotEmpty) 'body': body,
       },
     );
@@ -68,7 +69,7 @@ class ContactUsScreen extends StatelessWidget {
 
   void _copyToClipboard(BuildContext context, String text, String label) {
     Clipboard.setData(ClipboardData(text: text));
-    _showSnackBar(context, '$label copied to clipboard');
+    _showSnackBar(context, context.l10n.copiedToClipboard(label));
   }
 
   void _showSnackBar(BuildContext context, String message) {
@@ -76,14 +77,16 @@ class ContactUsScreen extends StatelessWidget {
       SnackBar(
         content: Text(
           message,
-          style: GoogleFonts.inter(color: Colors.white, fontSize: 13.sp),
+          style: context.adaptiveFont(color: Colors.white, fontSize: 13.sp),
         ),
         backgroundColor: const Color(0xff121829),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),
           side: BorderSide(
-            color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+            color: Theme.of(
+              context,
+            ).colorScheme.secondary.withValues(alpha: 0.3),
           ),
         ),
         duration: const Duration(seconds: 2),
@@ -93,6 +96,7 @@ class ContactUsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final secondaryColor = Theme.of(context).colorScheme.secondary;
     return Scaffold(
       backgroundColor: AppColors.darkBackground,
@@ -100,12 +104,12 @@ class ContactUsScreen extends StatelessWidget {
         backgroundColor: AppColors.darkBackground,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Contact Us',
-          style: GoogleFonts.inter(
+          l10n.contactUs,
+          style: context.adaptiveFont(
             fontSize: 20.sp,
             fontWeight: FontWeight.w700,
             color: Colors.white,
@@ -113,7 +117,7 @@ class ContactUsScreen extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16.w),
+            padding: EdgeInsetsDirectional.only(end: 16.w),
             child: AmberContainer(
               height: 40.h,
               width: 40.w,
@@ -134,22 +138,28 @@ class ContactUsScreen extends StatelessWidget {
           children: [
             const DeveloperProfileCard(),
             const Gap(24),
-
-            _buildSectionHeader('GET IN TOUCH'),
+            _buildSectionHeader(context, l10n.getInTouchSection),
             const Gap(10),
             ContactMethodsCard(
               phoneNumber: _phoneNumber,
               emailAddress: _emailAddress,
               onCallPhone: () => _callPhone(context),
-              onCopyPhone: () => _copyToClipboard(context, _phoneNumber, 'Phone number'),
+              onCopyPhone: () => _copyToClipboard(
+                context,
+                _phoneNumber,
+                l10n.phoneNumberLabel,
+              ),
               onOpenWhatsApp: () => _openWhatsApp(context),
               onSendEmail: () => _sendEmail(context),
-              onCopyEmail: () => _copyToClipboard(context, _emailAddress, 'Email address'),
+              onCopyEmail: () => _copyToClipboard(
+                context,
+                _emailAddress,
+                l10n.emailAddressLabel,
+              ),
               onOpenLinkedIn: () => _openLinkedIn(context),
             ),
             const Gap(24),
-
-            _buildSectionHeader('SEND A QUICK MESSAGE'),
+            _buildSectionHeader(context, l10n.sendQuickMessageSection),
             const Gap(10),
             QuickMessageForm(
               targetEmail: _emailAddress,
@@ -159,7 +169,9 @@ class ContactUsScreen extends StatelessWidget {
                 } else {
                   _sendEmail(
                     context,
-                    subject: subject.isNotEmpty ? subject : 'Pray in Time Feedback',
+                    subject: subject.isNotEmpty
+                        ? subject
+                        : l10n.emailFeedbackSubject,
                     body: body,
                   );
                 }
@@ -174,11 +186,11 @@ class ContactUsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(BuildContext context, String title) {
     return Text(
       title,
-      style: GoogleFonts.inter(
-        color: Colors.white.withOpacity(0.4),
+      style: context.adaptiveFont(
+        color: Colors.white.withValues(alpha: 0.4),
         fontSize: 12.sp,
         fontWeight: FontWeight.w500,
         letterSpacing: 0.8,

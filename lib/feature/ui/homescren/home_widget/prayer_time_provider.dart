@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
+
+import '../../../../core/localization/l10n_extension.dart';
 import '../../../../core/logic/prayer_time_cubit.dart';
 import '../../../../core/logic/prayer_time_state.dart';
 import '../../../widget/prayer_time_error_widget.dart';
-import 'prayer_time_list_tile.dart';
 import '../../../widget/prayer_time_loading_widget.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
+import 'prayer_time_list_tile.dart';
 
 class PrayerTimeWidget extends StatelessWidget {
   const PrayerTimeWidget({super.key});
@@ -15,14 +17,14 @@ class PrayerTimeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
-      builder: ((context, state) {
+      builder: (context, state) {
         if (state is PrayerTimeLoading) {
           return Shimmer(
             color: Theme.of(
               context,
             ).colorScheme.onSurface.withValues(alpha: 0.08),
-            child: const PrayerTimeLoadingWidget(
-              text: 'loading prayer times...',
+            child: PrayerTimeLoadingWidget(
+              text: context.l10n.loadingPrayerTimes,
             ),
           );
         } else if (state is PrayerTimeError) {
@@ -31,7 +33,7 @@ class PrayerTimeWidget extends StatelessWidget {
           return PrayerTimeListTile(prayerTimes: state.prayerTimes);
         }
         return const SizedBox.shrink();
-      }),
+      },
     );
   }
 }

@@ -4,8 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/Route/route.dart';
 import '../../../../core/helper/extensionss.dart';
+import '../../../../core/localization/l10n_extension.dart';
 import '../../../../core/logic/prayer_time_cubit.dart';
 import '../../../../core/logic/prayer_time_state.dart';
+import '../../../widget/prayer_time_error_widget.dart';
 import '../notification_access/widget/allow_notification_button.dart';
 import '../notification_access/widget/notification_access_header.dart';
 import 'widget/location_access_background.dart';
@@ -20,6 +22,7 @@ class LoactionAccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<PrayerTimeCubit>();
+    final l10n = context.l10n;
     return Scaffold(
       backgroundColor: const Color(0xff090b15),
       body: SafeArea(
@@ -50,7 +53,7 @@ class LoactionAccess extends StatelessWidget {
                           );
                         }
                         return AllowButtonWidget(
-                          text: 'Enaple Location Access',
+                          text: l10n.enableLocationButton,
                           onpressed: () async {
                             final SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
@@ -69,7 +72,14 @@ class LoactionAccess extends StatelessWidget {
                           context.pushReplacementName(Routes.homeScreen);
                         }
                         if (state is PrayerTimeError) {
-                          SnackBar(content: Text(state.message));
+                          SnackBar(
+                            content: Text(
+                              PrayerTimeErrorWidget.resolveErrorMessage(
+                                context,
+                                state.message,
+                              ),
+                            ),
+                          );
                         }
                         const SizedBox.shrink();
                         // AllowButtonWidget(

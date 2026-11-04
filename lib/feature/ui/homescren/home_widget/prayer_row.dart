@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import '../../../../core/utils/responsive_helper.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../core/localization/l10n_extension.dart';
+import '../../../../core/utils/responsive_helper.dart';
 import 'prayer_info.dart';
 
 class PrayerRow extends StatelessWidget {
@@ -11,9 +13,11 @@ class PrayerRow extends StatelessWidget {
     required this.isNext,
     required this.isPassed,
   });
+
   final PrayerInfo prayer;
   final bool isNext;
   final bool isPassed;
+
   Color _resolveColor({
     required Color active,
     required Color passed,
@@ -27,7 +31,10 @@ class PrayerRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final formattedTime = DateFormat('hh:mm a').format(prayer.time);
+    final formattedTime = DateFormat(
+      'hh:mm a',
+      context.localeCode,
+    ).format(prayer.time);
     final fadedOnSurface = colorScheme.onSurface.withValues(alpha: 0.35);
 
     return Container(
@@ -42,7 +49,7 @@ class PrayerRow extends StatelessWidget {
         children: [
           _buildIcon(colorScheme, fadedOnSurface),
           SizedBox(width: 14.w),
-          _buildName(colorScheme, fadedOnSurface),
+          _buildName(context, colorScheme, fadedOnSurface),
           _buildTime(formattedTime, colorScheme, fadedOnSurface),
           SizedBox(width: 10.w),
           _buildBell(colorScheme, fadedOnSurface),
@@ -78,13 +85,18 @@ class PrayerRow extends StatelessWidget {
     );
   }
 
-  Widget _buildName(ColorScheme colorScheme, Color fadedOnSurface) {
+  Widget _buildName(
+    BuildContext context,
+    ColorScheme colorScheme,
+    Color fadedOnSurface,
+  ) {
+    final displayName = context.localizedPrayerName(prayer.prayer.name);
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            prayer.name,
+            displayName,
             style: TextStyle(
               fontSize: 15.clampSp(),
               fontWeight: isNext ? FontWeight.w700 : FontWeight.w600,
@@ -98,11 +110,11 @@ class PrayerRow extends StatelessWidget {
           if (isNext) ...[
             SizedBox(height: 2.h),
             Text(
-              'COMING UP NEXT',
+              context.l10n.comingUpNext,
               style: TextStyle(
                 fontSize: 9.clampSp(),
                 fontWeight: FontWeight.w800,
-                letterSpacing: 1.2,
+                letterSpacing: context.isArabic ? 0 : 1.2,
                 color: colorScheme.primary,
               ),
             ),

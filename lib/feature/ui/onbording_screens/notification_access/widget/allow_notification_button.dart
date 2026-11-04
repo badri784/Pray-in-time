@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../../core/helper/font_weight_helper.dart';
+import '../../../../../core/localization/l10n_extension.dart';
 
 class AllowButtonWidget extends StatelessWidget {
   const AllowButtonWidget({super.key, this.text, this.onpressed});
@@ -31,11 +33,17 @@ class AllowButtonWidget extends StatelessWidget {
         onPressed: onpressed,
         child: Text(
           text ?? '',
-          style: GoogleFonts.libertinusSans(
-            fontSize: 16,
-            fontWeight: FontWeightHelper.bold,
-            color: Colors.black,
-          ),
+          style: context.isArabic
+              ? GoogleFonts.cairo(
+                  fontSize: 16,
+                  fontWeight: FontWeightHelper.bold,
+                  color: Colors.black,
+                )
+              : GoogleFonts.libertinusSans(
+                  fontSize: 16,
+                  fontWeight: FontWeightHelper.bold,
+                  color: Colors.black,
+                ),
         ),
       ),
     );

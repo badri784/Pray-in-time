@@ -1,0 +1,184 @@
+{
+  "@@locale": "en",
+  "appTitle": "Pray in Time",
+  "routeNotFound": "Page not found. Please try again.",
+  "loading": "Loading...",
+  "okButton": "OK",
+  "comingSoon": "Coming Soon...",
+  "retryAgain": "Try Again",
+
+  "onboardingNotificationTitle": "Never Miss A Prayer",
+  "onboardingNotificationSubtitle": "Allow notifications to wake up your screen and\nhear the beautiful Adhan at prayer times",
+  "allowNotificationsButton": "Allow Notifications",
+  "notificationPermissionError": "Notification permission error: {error}",
+  "@notificationPermissionError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "onboardingLocationTitle": "Accurate Prayer Times",
+  "onboardingLocationSubtitle": "Please allow location access to calculate exact\nprayer times for your city",
+  "enableLocationButton": "Enable Location Access",
+
+  "detectedLocation": "Detected Location",
+  "loadingPrayer": "Loading prayer...",
+  "loadingPrayerTimes": "Loading prayer times...",
+  "noPrayerTimesFound": "No prayer times found",
+  "nextPrayerLabel": "Next Prayer: {prayer}",
+  "@nextPrayerLabel": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "prayerAt": "Prayer at ",
+  "mandatoryAlarmActive": "Mandatory Alarm Active",
+  "dailyPrayerSchedule": "DAILY PRAYER SCHEDULE",
+  "comingUpNext": "COMING UP NEXT",
+  "alarmsArmed": ".. Alarms Armed",
+
+  "prayerFajr": "Fajr",
+  "prayerSunrise": "Sunrise",
+  "prayerDhuhr": "Dhuhr",
+  "prayerAsr": "Asr",
+  "prayerMaghrib": "Maghrib",
+  "prayerIsha": "Isha",
+  "prayerGeneral": "Prayer",
+
+  "adhanChannelName": "Adhan Notifications",
+  "adhanChannelDesc": "Adhan and prayer time alerts channel",
+  "adhanNotificationTitle": "It's time for {prayer} prayer",
+  "@adhanNotificationTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "adhanNotificationBody": "Come to Prayer 🕌",
+
+  "errorLocationDisabled": "Location services are disabled. Please turn on GPS.",
+  "errorLocationDenied": "Location permission denied. Please grant location access.",
+  "errorLocationPermanentlyDenied": "Location permission is permanently denied. Please enable it in device settings.",
+  "errorLoadCityName": "Failed to detect city name.",
+  "errorLoadPrayerTimes": "Failed to load prayer times. Please try again.",
+  "unknownLocation": "Unknown Location",
+
+  "settingsTitle": "Settings",
+  "alarmAndNotificationSection": "ALARM & NOTIFICATION",
+  "adhanSounds": "Adhan Sounds",
+  "defaultOption": "Default",
+  "locationSection": "LOCATION",
+  "currentLocation": "Current Location",
+  "cityNotFound": "City Not Found",
+  "autoDetectSubtitle": "{city},\nAuto Detect",
+  "@autoDetectSubtitle": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "languageSection": "LANGUAGE",
+  "languageTileTitle": "App Language (English)",
+  "languageTileSubtitle": "Switch to change language to Arabic",
+  "supportAndInfoSection": "SUPPORT & INFO",
+  "contactUs": "Contact Us",
+  "privacyPolicy": "Privacy Policy",
+  "aboutAndRateUs": "About & Rate Us",
+  "versionNumber": "v1.0.0",
+
+  "developerName": "Ahmed Salah",
+  "developerRole": "Software Engineer • Pray in Time",
+  "developerBio": "Have questions, feedback, or need help? Feel free to reach out anytime.",
+  "getInTouchSection": "GET IN TOUCH",
+  "callDirectly": "Call Directly",
+  "copyPhoneTooltip": "Copy Phone",
+  "callTooltip": "Call",
+  "whatsappTitle": "WhatsApp",
+  "whatsappSubtitle": "Chat on {phone}",
+  "@whatsappSubtitle": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "chatAction": "Chat",
+  "sendEmailTitle": "Send an Email",
+  "copyEmailTooltip": "Copy Email",
+  "composeTooltip": "Compose",
+  "linkedinTitle": "LinkedIn Profile",
+  "connectAction": "Connect",
+  "sendQuickMessageSection": "SEND A QUICK MESSAGE",
+  "subjectHint": "Subject (e.g. Suggestion, Issue, Feedback)",
+  "messageHint": "Type your message here...",
+  "sendToEmail": "Send to {email}",
+  "@sendToEmail": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "contactReplyTime": "We usually reply within 24 hours",
+  "couldNotLaunchAction": "Could not launch action. Please try again.",
+  "whatsappDefaultMessage": "Assalamu Alaikum Ahmed,\nI'm contacting you regarding the Pray in Time app.",
+  "emailDefaultSubject": "Pray in Time Support & Feedback",
+  "emailFeedbackSubject": "Pray in Time Feedback",
+  "phoneNumberLabel": "Phone number",
+  "emailAddressLabel": "Email address",
+  "copiedToClipboard": "{label} copied to clipboard",
+  "@copiedToClipboard": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+
+  "privacyEmailSubject": "Pray in Time - Privacy Inquiry",
+  "privacyShieldTitle": "Your Privacy is Sacred",
+  "privacyShieldDesc": "Pray in Time operates completely on-device without tracking, ads, or external data collection.",
+  "privacyBadgeOffline": "Offline Ready",
+  "privacyBadgeNoAccounts": "No Accounts",
+  "privacyBadgeZeroAds": "Zero Ads",
+  "privacyOverviewTitle": "Overview",
+  "privacyOverviewContent": "Welcome to Pray in Time. Your privacy is of paramount importance to us. This Privacy Policy explains how our application handles your information. In short: Pray in Time is built on a privacy-first, on-device architecture. We do not operate external servers, and we never collect, sell, or share your personal data.",
+  "privacyLocationTitle": "Location Data & City Detection",
+  "privacyLocationContent": "To calculate accurate Islamic prayer times (Fajr, Sunrise, Dhuhr, Asr, Maghrib, and Isha) for your region, the application requests foreground access to your device's location.\n\n• On-Device Calculation: Your GPS coordinates are processed locally using astronomical algorithms and cached on your device for instant offline access.\n• City Name Display: Your device's built-in OS geocoder is used to display your city/region name in the app and save it locally.\n• No Background Location Tracking: Location is never tracked in the background or sent to our own servers.",
+  "privacyAlarmsTitle": "Alarms & Foreground Adhan Audio",
+  "privacyAlarmsContent": "Pray in Time schedules prayer alarms up to 14 days ahead directly on your device so you never miss a prayer—even when the app is closed.\n\n• Native Exact Alarms: Scheduled locally through Android AlarmManager (AlarmClock) with automatic restoration after device restarts.\n• Foreground Audio Service: When prayer time enters, a temporary foreground media service runs solely to play the full Adhan audio and display a \"Stop Adhan\" notification control, then stops automatically.\n• Zero Push Servers: No cloud push services or external servers are used to trigger alerts.",
+  "privacyStorageTitle": "Preferences & Local Storage",
+  "privacyStorageContent": "Data such as your onboarding status, app language, last detected coordinates, city name, scheduled local alarm times, calculation method, and juristic preferences are stored strictly on your device via SharedPreferences.\n\n• No user account or sign-up is required.\n• All locally stored data is permanently erased whenever you clear app data or uninstall the app.",
+  "privacyThirdPartyTitle": "Third-Party Services & Tracking",
+  "privacyThirdPartyContent": "Pray in Time does NOT include third-party analytics SDKs, advertising networks, or data brokers. We do not track your behavior, device identifiers, or usage habits.",
+  "permissionsUsedHeader": "PERMISSIONS USED",
+  "permLocationTitle": "Location (Foreground GPS)",
+  "permLocationDesc": "Used to calculate prayer schedules locally and detect your city name.",
+  "permNotificationsTitle": "Notifications",
+  "permNotificationsDesc": "Alerts you when prayer time enters and provides the \"Stop Adhan\" button.",
+  "permExactAlarmsTitle": "Exact Alarms",
+  "permExactAlarmsDesc": "Triggers Adhan alarms accurately down to the second, even in Doze mode.",
+  "permForegroundMediaTitle": "Foreground Media Playback & Wake Lock",
+  "permForegroundMediaDesc": "Plays the full Adhan audio reliably when the screen is locked or the app is closed.",
+  "permBootTitle": "Boot Completed",
+  "permBootDesc": "Automatically restores your scheduled local prayer alarms after a phone restart.",
+  "privacyQuestionsTitle": "Have Questions About Privacy?",
+  "privacyQuestionsDesc": "If you have any questions or suggestions regarding this privacy policy, we are glad to assist.",
+  "privacyEmailButton": "Email: {email}",
+  "@privacyEmailButton": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "privacyFooterVersion": "Pray in Time • Version 1.0.0",
+  "privacyLastUpdated": "Last Updated: November 2026"
+}
+

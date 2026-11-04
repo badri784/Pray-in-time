@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../core/localization/l10n_extension.dart';
 import '../../../../../core/theming/app_color.dart';
 
 class QuickMessageForm extends StatefulWidget {
@@ -38,6 +38,7 @@ class _QuickMessageFormState extends State<QuickMessageForm> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final accentColor = Theme.of(context).colorScheme.secondary;
 
     return Container(
@@ -51,23 +52,30 @@ class _QuickMessageFormState extends State<QuickMessageForm> {
         children: [
           TextField(
             controller: _subjectController,
-            style: GoogleFonts.inter(color: Colors.white, fontSize: 14.sp),
+            style: context.adaptiveFont(color: Colors.white, fontSize: 14.sp),
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.darkBackground,
-              hintText: 'Subject (e.g. Suggestion, Issue, Feedback)',
-              hintStyle: GoogleFonts.inter(
-                color: Colors.white.withOpacity(0.35),
+              hintText: l10n.subjectHint,
+              hintStyle: context.adaptiveFont(
+                color: Colors.white.withValues(alpha: 0.35),
                 fontSize: 13.sp,
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 14.w,
+                vertical: 12.h,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
-                borderSide: BorderSide(color: Colors.white.withOpacity(0.08)),
+                borderSide: BorderSide(
+                  color: Colors.white.withValues(alpha: 0.08),
+                ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
-                borderSide: BorderSide(color: Colors.white.withOpacity(0.08)),
+                borderSide: BorderSide(
+                  color: Colors.white.withValues(alpha: 0.08),
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
@@ -79,23 +87,30 @@ class _QuickMessageFormState extends State<QuickMessageForm> {
           TextField(
             controller: _messageController,
             maxLines: 4,
-            style: GoogleFonts.inter(color: Colors.white, fontSize: 14.sp),
+            style: context.adaptiveFont(color: Colors.white, fontSize: 14.sp),
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.darkBackground,
-              hintText: 'Type your message here...',
-              hintStyle: GoogleFonts.inter(
-                color: Colors.white.withOpacity(0.35),
+              hintText: l10n.messageHint,
+              hintStyle: context.adaptiveFont(
+                color: Colors.white.withValues(alpha: 0.35),
                 fontSize: 13.sp,
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 14.w,
+                vertical: 12.h,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
-                borderSide: BorderSide(color: Colors.white.withOpacity(0.08)),
+                borderSide: BorderSide(
+                  color: Colors.white.withValues(alpha: 0.08),
+                ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
-                borderSide: BorderSide(color: Colors.white.withOpacity(0.08)),
+                borderSide: BorderSide(
+                  color: Colors.white.withValues(alpha: 0.08),
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
@@ -108,8 +123,8 @@ class _QuickMessageFormState extends State<QuickMessageForm> {
             onPressed: _handleSubmit,
             icon: const Icon(Icons.send_rounded, color: Colors.white, size: 18),
             label: Text(
-              'Send to ${widget.targetEmail}',
-              style: GoogleFonts.inter(
+              l10n.sendToEmail(widget.targetEmail),
+              style: context.adaptiveFont(
                 color: Colors.white,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,

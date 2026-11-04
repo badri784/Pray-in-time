@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/localization/l10n_extension.dart';
+
 class DailyPrayerSchedule extends StatelessWidget {
   const DailyPrayerSchedule({super.key});
 
@@ -14,7 +16,7 @@ class DailyPrayerSchedule extends StatelessWidget {
         ),
         SizedBox(width: 8.w),
         Text(
-          'DAILY PRAYER SCHEDULE',
+          context.l10n.dailyPrayerSchedule,
           style: TextStyle(color: Colors.white.withValues(alpha: 0.4)),
         ),
       ],

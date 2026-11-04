@@ -6,8 +6,14 @@ class AppTheme {
   // =========================================
   // 1. Light Theme
   // =========================================
-  static ThemeData get lightTheme {
+  static ThemeData lightTheme([Locale? locale]) {
+    final bool isArabic = locale?.languageCode == 'ar';
+    final String? fontFamily = isArabic
+        ? GoogleFonts.cairo().fontFamily
+        : GoogleFonts.spaceGrotesk().fontFamily;
+
     return ThemeData(
+      fontFamily: fontFamily,
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.lightBackground,
@@ -37,9 +43,14 @@ class AppTheme {
     );
   }
 
-  static ThemeData get darkTheme {
+  static ThemeData darkTheme([Locale? locale]) {
+    final bool isArabic = locale?.languageCode == 'ar';
+    final String? fontFamily = isArabic
+        ? GoogleFonts.cairo().fontFamily
+        : GoogleFonts.spaceGrotesk().fontFamily;
+
     return ThemeData(
-      fontFamily: GoogleFonts.spaceGrotesk().fontFamily,
+      fontFamily: fontFamily,
       useMaterial3: true,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.darkBackground,

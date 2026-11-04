@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../../core/localization/l10n_extension.dart';
 
 class ContactFooter extends StatelessWidget {
   const ContactFooter({
     super.key,
-    this.appName = 'Pray in Time',
-    this.subtitle = 'We usually reply within 24 hours',
+    this.appName,
+    this.subtitle,
   });
 
-  final String appName;
-  final String subtitle;
+  final String? appName;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final secondaryColor = Theme.of(context).colorScheme.secondary;
 
     return Center(
       child: Column(
         children: [
           Text(
-            appName,
-            style: GoogleFonts.inter(
+            appName ?? l10n.appTitle,
+            style: context.adaptiveFont(
               color: secondaryColor,
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
@@ -30,9 +32,9 @@ class ContactFooter extends StatelessWidget {
           ),
           const Gap(4),
           Text(
-            subtitle,
-            style: GoogleFonts.inter(
-              color: Colors.white.withOpacity(0.4),
+            subtitle ?? l10n.contactReplyTime,
+            style: context.adaptiveFont(
+              color: Colors.white.withValues(alpha: 0.4),
               fontSize: 12.sp,
             ),
           ),

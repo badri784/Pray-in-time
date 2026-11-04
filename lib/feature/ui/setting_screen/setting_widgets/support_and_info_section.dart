@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/localization/l10n_extension.dart';
 import '../../../../core/theming/app_color.dart';
 import '../../../../core/utils/responsive_helper.dart';
 import '../contact_us_screen/contact_us_screen.dart';
@@ -17,25 +17,26 @@ class SupportAndInfoSection extends StatelessWidget {
     this.onTapContactUs,
     this.onTapPrivacyPolicy,
     this.onTapAboutRateUs,
-    this.appName = 'Pray in Time',
-    this.version = 'v1.0.0',
+    this.appName,
+    this.version,
   });
 
   final VoidCallback? onTapContactUs;
   final VoidCallback? onTapPrivacyPolicy;
   final VoidCallback? onTapAboutRateUs;
-  final String appName;
-  final String version;
+  final String? appName;
+  final String? version;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'SUPPORT & INFO',
-          style: GoogleFonts.inter(
-            color: Colors.white.withOpacity(0.4),
+          l10n.supportAndInfoSection,
+          style: context.adaptiveFont(
+            color: Colors.white.withValues(alpha: 0.4),
             fontSize: 12.sp,
             fontWeight: FontWeight.w400,
           ),
@@ -59,8 +60,8 @@ class SupportAndInfoSection extends StatelessWidget {
                         ),
                       );
                     },
-                text: 'Contact Us',
-                textStyle: GoogleFonts.inter(
+                text: l10n.contactUs,
+                textStyle: context.adaptiveFont(
                   color: Colors.white,
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w400,
@@ -86,8 +87,8 @@ class SupportAndInfoSection extends StatelessWidget {
                         ),
                       );
                     },
-                text: 'Privacy Policy',
-                textStyle: GoogleFonts.inter(
+                text: l10n.privacyPolicy,
+                textStyle: context.adaptiveFont(
                   color: Colors.white,
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w400,
@@ -103,44 +104,47 @@ class SupportAndInfoSection extends StatelessWidget {
               const DriverWidget(),
               const Gap(8),
               ListTileSetting(
-                ontap: (){
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text(
-                        'Adhan Sounds',
-                        style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      content: Text(
-                        'Comming Soon...',
-                        style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'OK',
-                            style: GoogleFonts.inter(
-                              color: AppColors.primaryEmerald,
+                ontap:
+                    onTapAboutRateUs ??
+                    () {
+                      showDialog(
+                        context: context,
+                        builder: (dialogContext) => AlertDialog(
+                          title: Text(
+                            l10n.aboutAndRateUs,
+                            style: dialogContext.adaptiveFont(
+                              color: Colors.white,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
+                          content: Text(
+                            l10n.comingSoon,
+                            style: dialogContext.adaptiveFont(
+                              color: Colors.white,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(dialogContext);
+                              },
+                              child: Text(
+                                l10n.okButton,
+                                style: dialogContext.adaptiveFont(
+                                  color: AppColors.primaryEmerald,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  );
-                },
-                text: 'About & Rate Us',
-                textStyle: GoogleFonts.inter(
+                      );
+                    },
+                text: l10n.aboutAndRateUs,
+                textStyle: context.adaptiveFont(
                   color: Colors.white,
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w400,
@@ -157,15 +161,14 @@ class SupportAndInfoSection extends StatelessWidget {
           ),
         ),
         const Gap(8),
-
         Gap(28.h),
         Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                appName,
-                style: GoogleFonts.inter(
+                appName ?? l10n.appTitle,
+                style: context.adaptiveFont(
                   color: Theme.of(context).colorScheme.secondary,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
@@ -173,9 +176,9 @@ class SupportAndInfoSection extends StatelessWidget {
               ),
               Gap(4.h),
               Text(
-                version,
-                style: GoogleFonts.inter(
-                  color: Colors.white.withOpacity(0.4),
+                version ?? l10n.versionNumber,
+                style: context.adaptiveFont(
+                  color: Colors.white.withValues(alpha: 0.4),
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                 ),

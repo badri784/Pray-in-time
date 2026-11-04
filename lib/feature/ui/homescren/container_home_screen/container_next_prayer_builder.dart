@@ -5,19 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/localization/l10n_extension.dart';
 import '../../../../core/logic/prayer_time_cubit.dart';
 import '../../../../core/logic/prayer_time_state.dart';
-import 'alarm_active.dart';
 import '../../../widget/prayer_time_error_widget.dart';
 import '../../../widget/prayer_time_loading_widget.dart';
+import 'alarm_active.dart';
 import 'next_prayer.dart';
 import 'prayer_at.dart';
 import 'timer_for_next_prayer.dart';
 
 class ConrtainerOfNextPrayreBuilder extends StatelessWidget {
   const ConrtainerOfNextPrayreBuilder({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
       builder: (context, state) {
         if (state is PrayerTimeLoading) {
@@ -41,7 +44,7 @@ class ConrtainerOfNextPrayreBuilder extends StatelessWidget {
                 end: Alignment.topLeft,
               ),
             ),
-            child: const PrayerTimeLoadingWidget(text: 'loading prayer ...'),
+            child: PrayerTimeLoadingWidget(text: l10n.loadingPrayer),
           );
         }
         if (state is PrayerTimeError) {
@@ -50,7 +53,7 @@ class ConrtainerOfNextPrayreBuilder extends StatelessWidget {
         if (state is PrayerTimeLoaded) {
           final PrayerTimes prayerTimes = state.prayerTimes;
           final String nextPrayer = prayerTimes.nextPrayer().name;
-        
+
           final DateTime? nextPrayerTime = prayerTimes.timeForPrayer(
             prayerTimes.nextPrayer(),
           );
@@ -115,7 +118,7 @@ class ConrtainerOfNextPrayreBuilder extends StatelessWidget {
                 end: Alignment.topLeft,
               ),
             ),
-            child: const Center(child: Text('No prayer times found')),
+            child: Center(child: Text(l10n.noPrayerTimesFound)),
           );
         }
       },

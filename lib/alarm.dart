@@ -1,17 +1,26 @@
 import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/native_adhan_service.dart';
 import 'notification_helper.dart';
 
 const int kDaysToSchedule = 14;
 
-const Map<int, String> prayerNames = {
+const Map<int, String> prayerNamesAr = {
   0: 'الفجر',
   2: 'الظهر',
   3: 'العصر',
   4: 'المغرب',
   5: 'العشاء',
+};
+
+const Map<int, String> prayerNamesEn = {
+  0: 'Fajr',
+  2: 'Dhuhr',
+  3: 'Asr',
+  4: 'Maghrib',
+  5: 'Isha',
 };
 
 CalculationParameters buildPrayerParams() {
@@ -21,10 +30,20 @@ CalculationParameters buildPrayerParams() {
   return params;
 }
 
-Future<void> schedulePrayerAlarms(Coordinates coordinates) async {
+Future<void> schedulePrayerAlarms(
+  Coordinates coordinates, {
+  String? languageCode,
+}) async {
   await NotificationHelper.init();
   // Clear any legacy scheduled local notifications so they don't overlap
   await NotificationHelper.flutterLocalNotificationsPlugin.cancelAll();
+
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String resolvedLang =
+      languageCode ?? prefs.getString('app_locale') ?? 'en';
+  final Map<int, String> names = resolvedLang == 'ar'
+      ? prayerNamesAr
+      : prayerNamesEn;
 
   final DateTime now = DateTime.now();
   final CalculationParameters params = buildPrayerParams();
@@ -54,11 +73,11 @@ Future<void> schedulePrayerAlarms(Coordinates coordinates) async {
       if (time.isAfter(now)) {
         await NativeAdhanService.scheduleAdhan(
           id: alarmId,
-          prayerName: prayerNames[prayerKey]!,
+          prayerName: names[prayerKey]!,
           scheduledTime: time,
         );
         debugPrint(
-          '⏰ [اليوم +$day] تم جدولة أذان ${prayerNames[prayerKey]} (ID: $alarmId) في ${time.hour}:${time.minute.toString().padLeft(2, '0')}',
+          '⏰ [Day +$day] Scheduled Adhan ${names[prayerKey]} (ID: $alarmId) at ${time.hour}:${time.minute.toString().padLeft(2, '0')}',
         );
       } else {
         await NativeAdhanService.cancelAdhan(alarmId);

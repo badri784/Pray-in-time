@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../core/theming/app_color.dart';
+import '../../../../core/localization/l10n_extension.dart';
+import '../../../../core/localization/locale_cubit.dart';
 import 'ambr_container.dart';
-import 'settings_listtile.dart';
 
 class LanguageSection extends StatelessWidget {
   const LanguageSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Language',
-          style: GoogleFonts.inter(
-            color: Colors.white.withOpacity(0.4),
+          l10n.languageSection,
+          style: context.adaptiveFont(
+            color: Colors.white.withValues(alpha: 0.4),
             fontSize: 12.sp,
             fontWeight: FontWeight.w400,
           ),
@@ -27,50 +28,37 @@ class LanguageSection extends StatelessWidget {
         Material(
           color: const Color(0xff121829),
           borderRadius: BorderRadius.circular(12.r),
-          child: ListTileSetting(
-            ontap: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text(
-                    'Adhan Sounds',
-                    style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
+          clipBehavior: Clip.antiAlias,
+          child: BlocBuilder<LocaleCubit, Locale>(
+            builder: (context, locale) {
+              final bool isArabic = locale.languageCode == 'ar';
+              return SwitchListTile(
+                secondary: const AmberContainer(icon: Icons.language_rounded),
+                activeThumbColor: Theme.of(context).colorScheme.secondary,
+                title: Text(
+                  l10n.languageTileTitle,
+                  style: context.adaptiveFont(
+                    color: Colors.white,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w400,
                   ),
-                  content: Text(
-                    'Comming Soon...',
-                    style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'OK',
-                        style: GoogleFonts.inter(
-                          color: AppColors.primaryEmerald,
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
+                subtitle: Text(
+                  l10n.languageTileSubtitle,
+                  style: context.adaptiveFont(
+                    color: Colors.white.withValues(alpha: 0.4),
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                value: isArabic,
+                onChanged: (bool switchToArabic) {
+                  context.read<LocaleCubit>().changeLocale(
+                    Locale(switchToArabic ? 'ar' : 'en'),
+                  );
+                },
               );
             },
-            text: 'Language',
-            subtitle: 'English/العربية',
-            trailing: Icon(
-              Icons.arrow_drop_down,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            leading: const AmberContainer(icon: Icons.language, height: 55),
           ),
         ),
       ],

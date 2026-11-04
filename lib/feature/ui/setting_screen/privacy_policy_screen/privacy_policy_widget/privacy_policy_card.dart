@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../core/localization/l10n_extension.dart';
 import '../../../../../core/utils/responsive_helper.dart';
 import '../../setting_widgets/ambr_container.dart';
 
@@ -42,7 +42,7 @@ class PrivacyPolicyCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: GoogleFonts.inter(
+                  style: context.adaptiveFont(
                     color: Colors.white,
                     fontSize: 15.sp,
                     fontWeight: FontWeight.w600,
@@ -54,8 +54,8 @@ class PrivacyPolicyCard extends StatelessWidget {
           const Gap(12),
           Text(
             content,
-            style: GoogleFonts.inter(
-              color: Colors.white.withOpacity(0.75),
+            style: context.adaptiveFont(
+              color: Colors.white.withValues(alpha: 0.75),
               fontSize: 13.sp,
               height: 1.45,
             ),

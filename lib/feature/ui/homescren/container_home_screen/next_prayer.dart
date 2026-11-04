@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+
+import '../../../../core/localization/l10n_extension.dart';
 import '../../../../core/utils/responsive_helper.dart';
 
 class NextPrayerWidget extends StatelessWidget {
@@ -9,9 +11,9 @@ class NextPrayerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String prayerLabel = context.localizedPrayerName(nextPrayer);
     return Container(
-      padding: EdgeInsets.all(8.w),
-
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
       decoration: BoxDecoration(
         border: Border.all(
           color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.7),
@@ -20,22 +22,13 @@ class NextPrayerWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.r),
         color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.07),
       ),
-
-      child: nextPrayer == 'none'
-          ? Text(
-              'Next Prayer: Fajr',
-              style: TextStyle(
-                fontSize: 13.clampSp(),
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-            )
-          : Text(
-              'Next Prayer: $nextPrayer',
-              style: TextStyle(
-                fontSize: 13.clampSp(),
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-            ),
+      child: Text(
+        context.l10n.nextPrayerLabel(prayerLabel),
+        style: TextStyle(
+          fontSize: 13.clampSp(),
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      ),
     );
   }
 }

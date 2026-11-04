@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../core/localization/l10n_extension.dart';
 import '../../core/logic/prayer_time_cubit.dart';
 
 class PrayerTimeErrorWidget extends StatelessWidget {
   const PrayerTimeErrorWidget({super.key, required this.message});
   final String message;
 
+  static String resolveErrorMessage(BuildContext context, String code) {
+    final l10n = context.l10n;
+    switch (code) {
+      case PrayerTimeCubit.errLocationDisabled:
+      case 'Location services are disabled.':
+        return l10n.errorLocationDisabled;
+      case PrayerTimeCubit.errLocationDenied:
+      case 'Location permissions are denied':
+        return l10n.errorLocationDenied;
+      case PrayerTimeCubit.errLocationPermanentlyDenied:
+      case 'Location permissions are permanently denied, we cannot request permissions.':
+        return l10n.errorLocationPermanentlyDenied;
+      case PrayerTimeCubit.errLoadCity:
+        return l10n.errorLoadCityName;
+      case PrayerTimeCubit.errLoadPrayerTimes:
+        return l10n.errorLoadPrayerTimes;
+      default:
+        return code;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String errorMessage = resolveErrorMessage(context, message);
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       padding: const EdgeInsets.all(16),
@@ -22,23 +47,10 @@ class PrayerTimeErrorWidget extends StatelessWidget {
         children: [
           const Icon(Icons.location_off, color: Colors.red, size: 30),
           const SizedBox(height: 10),
-          Builder(
-            builder: (context) {
-              String errorMessage = message;
-              if (errorMessage == 'Location services are disabled.') {
-                errorMessage = 'Please turn on location';
-              } else if (errorMessage == 'Location permissions are denied') {
-                errorMessage = 'Please turn on location';
-              } else if (errorMessage ==
-                  'Location permissions are permanently denied, we cannot request permissions.') {
-                errorMessage = 'Location permissions are permanently denied';
-              }
-              return Text(
-                errorMessage,
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.red),
-              );
-            },
+          Text(
+            errorMessage,
+            textAlign: TextAlign.center,
+            style: context.adaptiveFont(color: Colors.red, fontSize: 14),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
@@ -50,7 +62,13 @@ class PrayerTimeErrorWidget extends StatelessWidget {
               foregroundColor: Colors.red.shade900,
               elevation: 0,
             ),
-            child: const Text('Retry agine'),
+            child: Text(
+              context.l10n.retryAgain,
+              style: context.adaptiveFont(
+                color: Colors.red.shade900,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
       ),

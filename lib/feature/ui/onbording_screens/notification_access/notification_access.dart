@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/Route/route.dart';
 import '../../../../core/helper/extensionss.dart';
+import '../../../../core/localization/l10n_extension.dart';
 import '../../../../notification_helper.dart';
 import 'widget/allow_notification_button.dart';
 import 'widget/notification_access_background.dart';
@@ -13,6 +14,7 @@ class NotificationAccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       // appBar: AppBar(
       //   backgroundColor: Colors.transparent,
@@ -45,28 +47,32 @@ class NotificationAccess extends StatelessWidget {
                       const NotificationAccessTexts(),
                       const SizedBox(height: 15),
                       AllowButtonWidget(
-                        text: 'Allow notifications',
+                        text: l10n.allowNotificationsButton,
                         onpressed: () async {
                           try {
                             await NotificationHelper.init();
                             await NotificationHelper.requestPermission();
                           } catch (e) {
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: Text(
-                                  'Notification permission error: $e',
-                                ),
-                                actions: [
-                                  IconButton(
-                                    onPressed: () {
-                                      context.pop();
-                                    },
-                                    icon: const Icon(Icons.done),
+                            if (context.mounted) {
+                              showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text(
+                                    l10n.notificationPermissionError(
+                                      e.toString(),
+                                    ),
                                   ),
-                                ],
-                              ),
-                            );
+                                  actions: [
+                                    IconButton(
+                                      onPressed: () {
+                                        context.pop();
+                                      },
+                                      icon: const Icon(Icons.done),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           }
                           if (!context.mounted) {
                             return;

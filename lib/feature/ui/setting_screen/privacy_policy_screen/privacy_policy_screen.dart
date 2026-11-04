@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/localization/l10n_extension.dart';
 import '../../../../core/theming/app_color.dart';
 import '../../../../core/utils/responsive_helper.dart';
 import '../setting_widgets/ambr_container.dart';
@@ -19,12 +19,12 @@ class PrivacyPolicyScreen extends StatelessWidget {
 
   static const String _contactEmail = 'aelbadri23@gmail.com';
 
-  Future<void> _sendEmail() async {
+  Future<void> _sendEmail(BuildContext context) async {
     final uri = Uri(
       scheme: 'mailto',
       path: _contactEmail,
       queryParameters: {
-        'subject': 'Pray in Time - Privacy Inquiry',
+        'subject': context.l10n.privacyEmailSubject,
       },
     );
     try {
@@ -36,6 +36,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final secondaryColor = Theme.of(context).colorScheme.secondary;
 
     return Scaffold(
@@ -44,12 +45,15 @@ class PrivacyPolicyScreen extends StatelessWidget {
         backgroundColor: AppColors.darkBackground,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          icon: const Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.white,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Privacy Policy',
-          style: GoogleFonts.inter(
+          l10n.privacyPolicy,
+          style: context.adaptiveFont(
             fontSize: 20.sp,
             fontWeight: FontWeight.w700,
             color: Colors.white,
@@ -57,7 +61,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16.w),
+            padding: EdgeInsetsDirectional.only(end: 16.w),
             child: AmberContainer(
               height: 40.h,
               width: 40.w,
@@ -82,57 +86,38 @@ class PrivacyPolicyScreen extends StatelessWidget {
             const PrivacyHighlightsRow(),
             const Gap(24),
 
-            const PrivacyPolicyCard(
+            PrivacyPolicyCard(
               icon: Icons.info_outline_rounded,
-              title: 'Overview',
-              content:
-                  'Welcome to Pray in Time. Your privacy is of paramount importance to us. '
-                  'This Privacy Policy explains how our application handles your information. '
-                  'In short: Pray in Time is designed with a privacy-first, on-device architecture. '
-                  'We do not collect, sell, or transmit your personal data.',
+              title: l10n.privacyOverviewTitle,
+              content: l10n.privacyOverviewContent,
             ),
             const Gap(16),
 
-            const PrivacyPolicyCard(
+            PrivacyPolicyCard(
               icon: Icons.location_on_outlined,
-              title: 'Location Data & Usage',
-              content:
-                  'To determine accurate Islamic prayer times (Fajr, Sunrise, Dhuhr, Asr, Maghrib, and Isha) '
-                  'and calculate the Qibla direction, the application requests access to your device\'s location.\n\n'
-                  '• 100% On-Device: Your GPS coordinates are processed locally using mathematical astronomical algorithms.\n'
-                  '• Zero Remote Logging: Your coordinates are never sent to external servers or logged anywhere.\n'
-                  '• No Background Tracking: Location is only requested when refreshing prayer schedules.',
+              title: l10n.privacyLocationTitle,
+              content: l10n.privacyLocationContent,
             ),
             const Gap(16),
 
-            const PrivacyPolicyCard(
+            PrivacyPolicyCard(
               icon: Icons.notifications_active_outlined,
-              title: 'Notifications & Alarms',
-              content:
-                  'Pray in Time requests notification and alarm permissions to deliver timely Adhan audio '
-                  'and prayer alerts.\n\n'
-                  '• Scheduling is handled entirely by your device\'s operating system (Android Alarm Manager / Local Notifications).\n'
-                  '• No remote push servers are used to trigger adhan times; everything is scheduled offline.',
+              title: l10n.privacyAlarmsTitle,
+              content: l10n.privacyAlarmsContent,
             ),
             const Gap(16),
 
-            const PrivacyPolicyCard(
+            PrivacyPolicyCard(
               icon: Icons.save_outlined,
-              title: 'Preferences & Local Storage',
-              content:
-                  'Settings such as your chosen Adhan audio, calculation method, juristic rule (Shafi\'i / Hanafi), '
-                  'and language are stored locally on your device via SharedPreferences.\n\n'
-                  '• No user account or registration is required.\n'
-                  '• All stored settings are permanently deleted if you clear app data or uninstall the app.',
+              title: l10n.privacyStorageTitle,
+              content: l10n.privacyStorageContent,
             ),
             const Gap(16),
 
-            const PrivacyPolicyCard(
+            PrivacyPolicyCard(
               icon: Icons.shield_outlined,
-              title: 'Third-Party Services & Tracking',
-              content:
-                  'Pray in Time does NOT contain third-party analytics trackers, advertising SDKs, or data brokers. '
-                  'We do not monitor your habits, device identifiers, or app usage patterns.',
+              title: l10n.privacyThirdPartyTitle,
+              content: l10n.privacyThirdPartyContent,
             ),
             const Gap(16),
 
@@ -141,7 +126,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
 
             PrivacyContactCard(
               contactEmail: _contactEmail,
-              onSendEmail: _sendEmail,
+              onSendEmail: () => _sendEmail(context),
             ),
             const Gap(32),
 

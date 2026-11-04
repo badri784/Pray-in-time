@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/localization/l10n_extension.dart';
 import '../../../../../core/utils/responsive_helper.dart';
 
 class NotificationAccessHeader extends StatelessWidget {
@@ -8,7 +9,7 @@ class NotificationAccessHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 24),
+      padding: const EdgeInsetsDirectional.only(start: 16, top: 24),
       child: Row(
         children: [
           Icon(
@@ -17,13 +18,16 @@ class NotificationAccessHeader extends StatelessWidget {
             color: const Color(0xffc58505),
           ),
           const SizedBox(width: 10),
-          const Text(
-            'Prayer in time',
-            style: TextStyle(fontSize: 18),
+          Text(
+            context.l10n.appTitle,
+            style: context.adaptiveFont(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
     );
   }
 }
-

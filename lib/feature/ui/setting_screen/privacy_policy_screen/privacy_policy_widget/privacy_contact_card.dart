@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../core/localization/l10n_extension.dart';
 import '../../../../../core/theming/app_color.dart';
 
 class PrivacyContactCard extends StatelessWidget {
@@ -17,6 +17,7 @@ class PrivacyContactCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final accentColor = Theme.of(context).colorScheme.secondary;
 
     return Container(
@@ -25,15 +26,15 @@ class PrivacyContactCard extends StatelessWidget {
         color: const Color(0xff121829),
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: accentColor.withOpacity(0.25),
+          color: accentColor.withValues(alpha: 0.25),
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Have Questions About Privacy?',
-            style: GoogleFonts.inter(
+            l10n.privacyQuestionsTitle,
+            style: context.adaptiveFont(
               color: Colors.white,
               fontSize: 15.sp,
               fontWeight: FontWeight.w600,
@@ -41,9 +42,9 @@ class PrivacyContactCard extends StatelessWidget {
           ),
           const Gap(6),
           Text(
-            'If you have any questions or suggestions regarding this privacy policy, we are glad to assist.',
-            style: GoogleFonts.inter(
-              color: Colors.white.withOpacity(0.65),
+            l10n.privacyQuestionsDesc,
+            style: context.adaptiveFont(
+              color: Colors.white.withValues(alpha: 0.65),
               fontSize: 12.sp,
               height: 1.35,
             ),
@@ -51,10 +52,14 @@ class PrivacyContactCard extends StatelessWidget {
           const Gap(14),
           ElevatedButton.icon(
             onPressed: onSendEmail,
-            icon: const Icon(Icons.email_outlined, color: Colors.white, size: 18),
+            icon: const Icon(
+              Icons.email_outlined,
+              color: Colors.white,
+              size: 18,
+            ),
             label: Text(
-              'Email: $contactEmail',
-              style: GoogleFonts.inter(
+              l10n.privacyEmailButton(contactEmail),
+              style: context.adaptiveFont(
                 color: Colors.white,
                 fontSize: 13.sp,
                 fontWeight: FontWeight.w600,

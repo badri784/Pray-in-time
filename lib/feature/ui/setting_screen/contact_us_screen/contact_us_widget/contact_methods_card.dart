@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../core/localization/l10n_extension.dart';
 import '../../../../../core/utils/responsive_helper.dart';
 import '../../setting_widgets/driver_widget.dart';
 import 'contact_action_tile.dart';
@@ -31,6 +31,7 @@ class ContactMethodsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final accentColor = Theme.of(context).colorScheme.secondary;
 
     return Material(
@@ -43,23 +44,23 @@ class ContactMethodsCard extends StatelessWidget {
           // 1. Direct Phone Call
           ContactActionTile(
             icon: Icons.phone_in_talk_rounded,
-            title: 'Call Directly',
-            subtitle: phoneNumber,
+            title: l10n.callDirectly,
+            subtitle: '\u200E$phoneNumber\u200E',
             onTap: onCallPhone,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  tooltip: 'Copy Phone',
+                  tooltip: l10n.copyPhoneTooltip,
                   icon: Icon(
                     Icons.copy_rounded,
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withValues(alpha: 0.5),
                     size: 18.clampSp(),
                   ),
                   onPressed: onCopyPhone,
                 ),
                 IconButton(
-                  tooltip: 'Call',
+                  tooltip: l10n.callTooltip,
                   icon: Icon(
                     Icons.call_rounded,
                     color: accentColor,
@@ -76,21 +77,21 @@ class ContactMethodsCard extends StatelessWidget {
           ContactActionTile(
             icon: Icons.chat_rounded,
             iconColor: const Color(0xFF25D366),
-            title: 'WhatsApp',
-            subtitle: 'Chat on +20 150 073 0240',
+            title: l10n.whatsappTitle,
+            subtitle: l10n.whatsappSubtitle('\u200E+20 150 073 0240\u200E'),
             onTap: onOpenWhatsApp,
             trailing: Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
               decoration: BoxDecoration(
-                color: const Color(0xFF25D366).withOpacity(0.15),
+                color: const Color(0xFF25D366).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Chat',
-                    style: GoogleFonts.inter(
+                    l10n.chatAction,
+                    style: context.adaptiveFont(
                       color: const Color(0xFF25D366),
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
@@ -111,23 +112,23 @@ class ContactMethodsCard extends StatelessWidget {
           // 3. Email
           ContactActionTile(
             icon: Icons.alternate_email_rounded,
-            title: 'Send an Email',
+            title: l10n.sendEmailTitle,
             subtitle: emailAddress,
             onTap: onSendEmail,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  tooltip: 'Copy Email',
+                  tooltip: l10n.copyEmailTooltip,
                   icon: Icon(
                     Icons.copy_rounded,
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withValues(alpha: 0.5),
                     size: 18.clampSp(),
                   ),
                   onPressed: onCopyEmail,
                 ),
                 IconButton(
-                  tooltip: 'Compose',
+                  tooltip: l10n.composeTooltip,
                   icon: Icon(
                     Icons.send_rounded,
                     color: accentColor,
@@ -144,21 +145,21 @@ class ContactMethodsCard extends StatelessWidget {
           ContactActionTile(
             icon: Icons.business_center_rounded,
             iconColor: const Color(0xFF0A66C2),
-            title: 'LinkedIn Profile',
+            title: l10n.linkedinTitle,
             subtitle: 'ahmed-salah-g63',
             onTap: onOpenLinkedIn,
             trailing: Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
               decoration: BoxDecoration(
-                color: const Color(0xFF0A66C2).withOpacity(0.15),
+                color: const Color(0xFF0A66C2).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Connect',
-                    style: GoogleFonts.inter(
+                    l10n.connectAction,
+                    style: context.adaptiveFont(
                       color: const Color(0xFF3897F0),
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w600,

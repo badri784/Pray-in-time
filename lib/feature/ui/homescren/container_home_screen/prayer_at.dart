@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/responsive_helper.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../core/localization/l10n_extension.dart';
+import '../../../../core/utils/responsive_helper.dart';
 
 class PrayerAtTime extends StatelessWidget {
   const PrayerAtTime({
@@ -11,8 +13,9 @@ class PrayerAtTime extends StatelessWidget {
 
   final DateTime? nextPrayerTimes;
   final String nextPrayer;
-  String formateTime(DateTime time) {
-    return DateFormat.jm().format(time);
+
+  String formateTime(DateTime time, String localeCode) {
+    return DateFormat.jm(localeCode).format(time);
   }
 
   @override
@@ -27,15 +30,15 @@ class PrayerAtTime extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         nextPrayerTimes != null
-            ? RichText(
-                text: TextSpan(
+            ? Text.rich(
+                TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Prayer at ',
+                      text: context.l10n.prayerAt,
                       style: TextStyle(fontSize: 14.clampSp()),
                     ),
                     TextSpan(
-                      text: formateTime(nextPrayerTimes!),
+                      text: formateTime(nextPrayerTimes!, context.localeCode),
                       style: TextStyle(
                         fontSize: 14.clampSp(),
                         fontWeight: FontWeight.bold,

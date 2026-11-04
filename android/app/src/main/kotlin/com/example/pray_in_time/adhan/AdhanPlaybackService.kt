@@ -19,6 +19,7 @@ import android.os.PowerManager
 import android.util.Log
 import com.example.pray_in_time.MainActivity
 import com.example.pray_in_time.R
+import java.util.Locale
 
 class AdhanPlaybackService : Service() {
     companion object {
@@ -30,6 +31,8 @@ class AdhanPlaybackService : Service() {
         private const val COMPLETED_CHANNEL_ID = "adhan_completed_reminder_channel"
         private const val FOREGROUND_NOTIFICATION_ID = 7001
         private const val COMPLETED_NOTIFICATION_ID = 7002
+        private const val FLUTTER_PREFS_NAME = "FlutterSharedPreferences"
+        private const val FLUTTER_LOCALE_KEY = "flutter.app_locale"
     }
 
     private var mediaPlayer: MediaPlayer? = null
@@ -38,6 +41,16 @@ class AdhanPlaybackService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
+    private fun isArabicLocale(): Boolean {
+        val prefs = getSharedPreferences(FLUTTER_PREFS_NAME, Context.MODE_PRIVATE)
+        val saved = prefs.getString(FLUTTER_LOCALE_KEY, null)
+        return when (saved) {
+            "ar" -> true
+            "en" -> false
+            else -> Locale.getDefault().language == "ar"
+        }
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == ACTION_STOP_ADHAN) {
             Log.d(TAG, "User stopped Adhan playback.")
@@ -45,10 +58,12 @@ class AdhanPlaybackService : Service() {
             return START_NOT_STICKY
         }
 
-        val prayerName = intent?.getStringExtra(AdhanScheduler.EXTRA_PRAYER_NAME) ?: "الصلاة"
-        ensureNotificationChannels()
+        val isArabic = isArabicLocale()
+        val defaultPrayer = if (isArabic) "الصلاة" else "Prayer"
+        val prayerName = intent?.getStringExtra(AdhanScheduler.EXTRA_PRAYER_NAME) ?: defaultPrayer
+        ensureNotificationChannels(isArabic)
 
-        val notification = buildForegroundNotification(prayerName)
+        val notification = buildForegroundNotification(prayerName, isArabic)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startForeground(
                 FOREGROUND_NOTIFICATION_ID,
@@ -91,7 +106,7 @@ class AdhanPlaybackService : Service() {
                 setVolume(1.0f, 1.0f)
                 setOnCompletionListener {
                     Log.d(TAG, "Adhan completed naturally for $prayerName")
-                    showCompletedNotification(prayerName)
+                    showCompletedNotification(prayerName, isArabicLocale())
                     stopAdhanAndSelf()
                 }
                 setOnErrorListener { _, what, extra ->
@@ -143,16 +158,20 @@ class AdhanPlaybackService : Service() {
         }
     }
 
-    private fun ensureNotificationChannels() {
+    private fun ensureNotificationChannels(isArabic: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             val playbackChannel = NotificationChannel(
                 PLAYBACK_CHANNEL_ID,
-                "تشغيل الأذان",
+                if (isArabic) "تشغيل الأذان" else "Adhan Playback",
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "إشعار تشغيل صوت الأذان في أوقات الصلاة"
+                description = if (isArabic) {
+                    "إشعار تشغيل صوت الأذان في أوقات الصلاة"
+                } else {
+                    "Foreground notification while Adhan audio plays"
+                }
                 setSound(null, null) // Sound is handled by MediaPlayer on USAGE_ALARM
                 enableVibration(true)
                 lockscreenVisibility = Notification.VISIBILITY_PUBLIC
@@ -161,10 +180,14 @@ class AdhanPlaybackService : Service() {
 
             val completedChannel = NotificationChannel(
                 COMPLETED_CHANNEL_ID,
-                "تذكير الصلاة",
+                if (isArabic) "تذكير الصلاة" else "Prayer Reminder",
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
-                description = "تذكير بدخول وقت الصلاة بعد انتهاء الأذان"
+                description = if (isArabic) {
+                    "تذكير بدخول وقت الصلاة بعد انتهاء الأذان"
+                } else {
+                    "Prayer time reminder after Adhan completes"
+                }
                 setSound(null, null)
                 enableVibration(false)
                 lockscreenVisibility = Notification.VISIBILITY_PUBLIC
@@ -173,7 +196,7 @@ class AdhanPlaybackService : Service() {
         }
     }
 
-    private fun buildForegroundNotification(prayerName: String): Notification {
+    private fun buildForegroundNotification(prayerName: String, isArabic: Boolean): Notification {
         val openAppIntent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
@@ -201,26 +224,34 @@ class AdhanPlaybackService : Service() {
             Notification.Builder(this).setPriority(Notification.PRIORITY_MAX)
         }
 
+        val stopLabel = if (isArabic) "إيقاف الأذان" else "Stop Adhan"
         val stopAction = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Notification.Action.Builder(
                 Icon.createWithResource(this, android.R.drawable.ic_media_pause),
-                "إيقاف الأذان",
+                stopLabel,
                 stopPendingIntent
             ).build()
         } else {
             @Suppress("DEPRECATION")
             Notification.Action(
                 android.R.drawable.ic_media_pause,
-                "إيقاف الأذان",
+                stopLabel,
                 stopPendingIntent
             )
         }
 
+        val title = if (isArabic) {
+            "حان وقت صلاة $prayerName"
+        } else {
+            "It's time for $prayerName prayer"
+        }
+        val body = if (isArabic) "حيّ على الصلاة 🕌" else "Come to Prayer 🕌"
+
         return builder
             .setSmallIcon(R.drawable.ic_app_notification)
             .setColor(0xFFFFAB00.toInt())
-            .setContentTitle("حان وقت صلاة $prayerName")
-            .setContentText("حيّ على الصلاة 🕌")
+            .setContentTitle(title)
+            .setContentText(body)
             .setCategory(Notification.CATEGORY_ALARM)
             .setVisibility(Notification.VISIBILITY_PUBLIC)
             .setContentIntent(openAppPendingIntent)
@@ -230,7 +261,7 @@ class AdhanPlaybackService : Service() {
             .build()
     }
 
-    private fun showCompletedNotification(prayerName: String) {
+    private fun showCompletedNotification(prayerName: String, isArabic: Boolean) {
         val openAppIntent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
@@ -248,11 +279,18 @@ class AdhanPlaybackService : Service() {
             Notification.Builder(this)
         }
 
+        val title = if (isArabic) {
+            "حان وقت صلاة $prayerName"
+        } else {
+            "It's time for $prayerName prayer"
+        }
+        val body = if (isArabic) "حيّ على الصلاة 🕌" else "Come to Prayer 🕌"
+
         val notification = builder
             .setSmallIcon(R.drawable.ic_app_notification)
             .setColor(0xFFFFAB00.toInt())
-            .setContentTitle("حان وقت صلاة $prayerName")
-            .setContentText("حيّ على الصلاة 🕌")
+            .setContentTitle(title)
+            .setContentText(body)
             .setAutoCancel(true)
             .setVisibility(Notification.VISIBILITY_PUBLIC)
             .setContentIntent(openAppPendingIntent)
@@ -307,4 +345,3 @@ class AdhanPlaybackService : Service() {
         super.onDestroy()
     }
 }
-
