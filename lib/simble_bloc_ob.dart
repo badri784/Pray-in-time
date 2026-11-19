@@ -9,7 +9,7 @@ class SimbleBlocOb implements BlocObserver {
 
   @override
   void onClose(BlocBase<dynamic> bloc) {
-    debugPrint('On close = $bloc');
+    debugPrint('Bloc is Closed = $bloc');
   }
 
   @override

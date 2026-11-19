@@ -25,17 +25,14 @@ class AppRouter {
       case Routes.homeScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => PrayerTimeCubit()..getPrayerTimes(),
+            create: (context) => PrayerTimeCubit()..getMyCoordinates(),
             child: const HomeScreen(),
           ),
         );
       default:
         return MaterialPageRoute(
-          builder: (context) => Scaffold(
-            body: Center(
-              child: Text(context.l10n.routeNotFound),
-            ),
-          ),
+          builder: (context) =>
+              Scaffold(body: Center(child: Text(context.l10n.routeNotFound))),
         );
     }
   }

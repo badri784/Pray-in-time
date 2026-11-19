@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/localization/l10n_extension.dart';
@@ -12,6 +13,38 @@ import 'settings_listtile.dart';
 class LocationSection extends StatelessWidget {
   const LocationSection({super.key});
 
+  Future<void> saveCityName(String cityName) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('cityName', cityName);
+    } catch (e) {
+      debugPrint('Failed to save city name: $e');
+    }
+  }
+
+  Future<String> getCityName() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final double? lat = prefs.getDouble('saved_lat');
+      final double? lng = prefs.getDouble('saved_lng');
+      final Geocoding geocoding = Geocoding();
+      final List<Placemark> placemarks = await geocoding
+          .placemarkFromCoordinates(lat!, lng!)
+          .timeout(const Duration(seconds: 5));
+      if (placemarks.isNotEmpty) {
+        final Placemark place = placemarks.first;
+        final String area = place.administrativeArea ?? '';
+        final String country = place.country ?? '';
+        if (area.isNotEmpty && country.isNotEmpty) {
+          return '$area, $country';
+        }
+      }
+    } catch (e) {
+      return '';
+    }
+    return '';
+  }
+
   Future<String?> _loadSavedCity() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cityname = prefs.getString('cityName');
@@ -19,6 +52,11 @@ class LocationSection extends StatelessWidget {
     if (cityname == null ||
         cityname.trim().isEmpty ||
         cityname == 'Unknown Location') {
+      final String fetched = await getCityName();
+      if (fetched.isNotEmpty) {
+        await saveCityName(fetched);
+        return fetched;
+      }
       return null;
     }
     return cityname;

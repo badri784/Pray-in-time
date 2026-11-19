@@ -6,17 +6,14 @@
   "okButton": "حسناً",
   "comingSoon": "قريباً...",
   "retryAgain": "إعادة المحاولة",
-
   "onboardingNotificationTitle": "لا تفوّت صلاتك أبداً",
   "onboardingNotificationSubtitle": "اسمح بالإشعارات لإيقاظ شاشتك وسماع\nصوت الأذان العذب في أوقات الصلاة",
   "allowNotificationsButton": "تفعيل الإشعارات",
   "notificationPermissionError": "خطأ في صلاحية الإشعارات: {error}",
-
   "onboardingLocationTitle": "مواقيت صلاة دقيقة",
   "onboardingLocationSubtitle": "يرجى السماح بالوصول إلى الموقع لحساب\nمواقيت الصلاة بدقة لمدينتك",
   "enableLocationButton": "تفعيل الموقع الجغرافي",
-
-  "detectedLocation": "الموقع المحدد",
+  "detectedLocation": "الموقع محدد",
   "loadingPrayer": "جاري تحميل الصلاة...",
   "loadingPrayerTimes": "جاري تحميل مواقيت الصلاة...",
   "noPrayerTimesFound": "لم يتم العثور على مواقيت الصلاة",
@@ -26,7 +23,6 @@
   "dailyPrayerSchedule": "جدول الصلوات اليومي",
   "comingUpNext": "الصلاة القادمة",
   "alarmsArmed": ".. المنبهات مفعّلة",
-
   "prayerFajr": "الفجر",
   "prayerSunrise": "الشروق",
   "prayerDhuhr": "الظهر",
@@ -34,19 +30,16 @@
   "prayerMaghrib": "المغرب",
   "prayerIsha": "العشاء",
   "prayerGeneral": "الصلاة",
-
   "adhanChannelName": "إشعارات الأذان",
   "adhanChannelDesc": "قناة الأذان والتنبيهات لأوقات الصلاة",
   "adhanNotificationTitle": "حان وقت صلاة {prayer}",
   "adhanNotificationBody": "حيّ على الصلاة 🕌",
-
   "errorLocationDisabled": "خدمات الموقع متوقفة، يرجى تفعيل الـ GPS.",
   "errorLocationDenied": "تم رفض صلاحية الموقع، يرجى السماح بالوصول للموقع.",
   "errorLocationPermanentlyDenied": "صلاحية الموقع مرفوضة نهائياً، يرجى تفعيلها من إعدادات الهاتف.",
   "errorLoadCityName": "تعذّر تحديد اسم المدينة.",
   "errorLoadPrayerTimes": "تعذّر تحميل مواقيت الصلاة، يرجى المحاولة مرة أخرى.",
   "unknownLocation": "موقع غير معروف",
-
   "settingsTitle": "الإعدادات",
   "alarmAndNotificationSection": "التنبيهات والإشعارات",
   "adhanSounds": "أصوات الأذان",
@@ -63,7 +56,6 @@
   "privacyPolicy": "سياسة الخصوصية",
   "aboutAndRateUs": "عن التطبيق وتقييمنا",
   "versionNumber": "الإصدار 1.0.0",
-
   "developerName": "أحمد صلاح",
   "developerRole": "مهندس برمجيات • صلاتي في وقتها",
   "developerBio": "هل لديك استفسار أو اقتراح أو تحتاج إلى مساعدة؟ يسعدني تواصلك في أي وقت.",
@@ -91,7 +83,6 @@
   "phoneNumberLabel": "رقم الهاتف",
   "emailAddressLabel": "البريد الإلكتروني",
   "copiedToClipboard": "تم نسخ {label} إلى الحافظة",
-
   "privacyEmailSubject": "صلاتي في وقتها - استفسار حول الخصوصية",
   "privacyShieldTitle": "خصوصيتك أمانة",
   "privacyShieldDesc": "يعمل التطبيق بالكامل على جهازك دون أي تتبع أو إعلانات أو جمع بيانات خارجي.",
@@ -125,4 +116,3 @@
   "privacyFooterVersion": "صلاتي في وقتها • الإصدار 1.0.0",
   "privacyLastUpdated": "آخر تحديث: نوفمبر 2026"
 }
-

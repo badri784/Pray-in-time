@@ -52,7 +52,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get enableLocationButton => 'تفعيل الموقع الجغرافي';
 
   @override
-  String get detectedLocation => 'الموقع المحدد';
+  String get detectedLocation => 'الموقع محدد';
 
   @override
   String get loadingPrayer => 'جاري تحميل الصلاة...';

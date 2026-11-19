@@ -1,5 +1,4 @@
 import 'package:adhan/adhan.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/native_adhan_service.dart';
@@ -35,7 +34,6 @@ Future<void> schedulePrayerAlarms(
   String? languageCode,
 }) async {
   await NotificationHelper.init();
-  // Clear any legacy scheduled local notifications so they don't overlap
   await NotificationHelper.flutterLocalNotificationsPlugin.cancelAll();
 
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -76,9 +74,7 @@ Future<void> schedulePrayerAlarms(
           prayerName: names[prayerKey]!,
           scheduledTime: time,
         );
-        debugPrint(
-          '⏰ [Day +$day] Scheduled Adhan ${names[prayerKey]} (ID: $alarmId) at ${time.hour}:${time.minute.toString().padLeft(2, '0')}',
-        );
+      
       } else {
         await NativeAdhanService.cancelAdhan(alarmId);
       }
