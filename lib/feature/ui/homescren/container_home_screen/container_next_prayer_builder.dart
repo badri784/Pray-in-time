@@ -52,12 +52,25 @@ class ConrtainerOfNextPrayreBuilder extends StatelessWidget {
         }
         if (state is PrayerTimeLoaded) {
           final PrayerTimes prayerTimes = state.prayerTimes;
-          final String nextPrayer = prayerTimes.nextPrayer().name;
+          final Prayer currentNext = prayerTimes.nextPrayer();
+          final String nextPrayer = currentNext == Prayer.none
+              ? 'fajr'
+              : currentNext.name;
 
-          final DateTime? nextPrayerTime = prayerTimes.timeForPrayer(
-            prayerTimes.nextPrayer(),
-          );
-
+          final DateTime? nextPrayerTime;
+          if (currentNext == Prayer.none) {
+            final DateComponents tomorrow = DateComponents.from(
+              DateTime.now().add(const Duration(days: 1)),
+            );
+            final PrayerTimes tomorrowPrayers = PrayerTimes(
+              prayerTimes.coordinates,
+              tomorrow,
+              prayerTimes.calculationParameters,
+            );
+            nextPrayerTime = tomorrowPrayers.fajr;
+          } else {
+            nextPrayerTime = prayerTimes.timeForPrayer(currentNext);
+          }
           return Container(
             height: min(250.h, 300),
             width: double.infinity,

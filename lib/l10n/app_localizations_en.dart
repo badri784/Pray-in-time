@@ -153,6 +153,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get defaultOption => 'Default';
 
   @override
+  String get restartPrayerTimeTitle => 'Refresh Prayer Times';
+
+  @override
+  String get restartPrayerTimeSubtitle =>
+      'Tap to refresh location & reschedule alarms';
+
+  @override
+  String get prayerTimesRefreshed => 'Prayer times updated successfully';
+
+  @override
+  String get refreshingPrayerTimes => 'Updating prayer times & alarms...';
+
+  @override
+  String get changingLanguage => 'Updating language...';
+
+  @override
   String get locationSection => 'LOCATION';
 
   @override

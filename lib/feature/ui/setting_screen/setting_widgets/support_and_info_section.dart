@@ -3,7 +3,6 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/localization/l10n_extension.dart';
-import '../../../../core/theming/app_color.dart';
 import '../../../../core/utils/responsive_helper.dart';
 import '../contact_us_screen/contact_us_screen.dart';
 import '../privacy_policy_screen/privacy_policy_screen.dart';
@@ -101,62 +100,62 @@ class SupportAndInfoSection extends StatelessWidget {
                 ),
               ),
               const Gap(8),
-              const DriverWidget(),
-              const Gap(8),
-              ListTileSetting(
-                ontap:
-                    onTapAboutRateUs ??
-                    () {
-                      showDialog(
-                        context: context,
-                        builder: (dialogContext) => AlertDialog(
-                          title: Text(
-                            l10n.aboutAndRateUs,
-                            style: dialogContext.adaptiveFont(
-                              color: Colors.white,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          content: Text(
-                            l10n.comingSoon,
-                            style: dialogContext.adaptiveFont(
-                              color: Colors.white,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(dialogContext);
-                              },
-                              child: Text(
-                                l10n.okButton,
-                                style: dialogContext.adaptiveFont(
-                                  color: AppColors.primaryEmerald,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                text: l10n.aboutAndRateUs,
-                textStyle: context.adaptiveFont(
-                  color: Colors.white,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-                leading: const AmberContainer(icon: Icons.star),
-                trailing: Icon(
-                  Icons.keyboard_arrow_down,
-                  color: const Color(0xFF4B5B76),
-                  size: 22.clampSp(),
-                ),
-              ),
-              const Gap(8),
+              // const DriverWidget(),
+              // const Gap(8),
+              // ListTileSetting(
+              //   ontap:
+              //       onTapAboutRateUs ??
+              //       () {
+              //         showDialog(
+              //           context: context,
+              //           builder: (dialogContext) => AlertDialog(
+              //             title: Text(
+              //               l10n.aboutAndRateUs,
+              //               style: dialogContext.adaptiveFont(
+              //                 color: Colors.white,
+              //                 fontSize: 15.sp,
+              //                 fontWeight: FontWeight.w600,
+              //               ),
+              //             ),
+              //             content: Text(
+              //               l10n.comingSoon,
+              //               style: dialogContext.adaptiveFont(
+              //                 color: Colors.white,
+              //                 fontSize: 15.sp,
+              //                 fontWeight: FontWeight.w400,
+              //               ),
+              //             ),
+              //             actions: [
+              //               TextButton(
+              //                 onPressed: () {
+              //                   Navigator.pop(dialogContext);
+              //                 },
+              //                 child: Text(
+              //                   l10n.okButton,
+              //                   style: dialogContext.adaptiveFont(
+              //                     color: AppColors.primaryEmerald,
+              //                     fontWeight: FontWeight.w600,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         );
+              //       },
+              //   text: l10n.aboutAndRateUs,
+              //   textStyle: context.adaptiveFont(
+              //     color: Colors.white,
+              //     fontSize: 15.sp,
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              //   leading: const AmberContainer(icon: Icons.star),
+              //   trailing: Icon(
+              //     Icons.keyboard_arrow_down,
+              //     color: const Color(0xFF4B5B76),
+              //     size: 22.clampSp(),
+              //   ),
+              // ),
+              // const Gap(8),
             ],
           ),
         ),

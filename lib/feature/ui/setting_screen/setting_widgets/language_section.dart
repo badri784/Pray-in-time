@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 
 import '../../../../core/localization/l10n_extension.dart';
 import '../../../../core/localization/locale_cubit.dart';
+import '../../../widget/app_loading_dialog.dart';
 import 'ambr_container.dart';
 
 class LanguageSection extends StatelessWidget {
@@ -52,9 +53,19 @@ class LanguageSection extends StatelessWidget {
                   ),
                 ),
                 value: isArabic,
-                onChanged: (bool switchToArabic) {
-                  context.read<LocaleCubit>().changeLocale(
-                    Locale(switchToArabic ? 'ar' : 'en'),
+                onChanged: (bool switchToArabic) async {
+                  final localeCubit = context.read<LocaleCubit>();
+                  await runWithLoadingDialog<void>(
+                    context: context,
+                    message: l10n.changingLanguage,
+                    action: () async {
+                      await Future.wait<void>([
+                        localeCubit.changeLocale(
+                          Locale(switchToArabic ? 'ar' : 'en'),
+                        ),
+                        Future<void>.delayed(const Duration(milliseconds: 500)),
+                      ]);
+                    },
                   );
                 },
               );

@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/localization/l10n_extension.dart';
+import '../../../../core/logic/prayer_time_cubit.dart';
 import '../../../../core/utils/responsive_helper.dart';
 import '../../setting_screen/setting_screen.dart';
 
@@ -133,9 +135,15 @@ class _HomeAppBarState extends State<HomeAppBar> {
       onTap:
           widget.onSettingsTap ??
           () {
+            final cubit = context.read<PrayerTimeCubit>();
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SettingScreen()),
+              MaterialPageRoute(
+                builder: (_) => BlocProvider.value(
+                  value: cubit,
+                  child: const SettingScreen(),
+                ),
+              ),
             );
           },
       child: Container(

@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.compile.JavaCompile
+
 allprojects {
     repositories {
         google()
@@ -19,6 +21,9 @@ subprojects {
         if (androidExt is com.android.build.gradle.LibraryExtension) {
             androidExt.compileSdk = 36
         }
+    }
+    tasks.withType<JavaCompile>().configureEach {
+        options.compilerArgs.add("-Xlint:-options")
     }
 }
 subprojects {

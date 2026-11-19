@@ -1,9 +1,11 @@
 import 'dart:developer';
+
 import 'package:adhan/adhan.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../alarm.dart';
 import 'prayer_time_state.dart';
 
@@ -65,7 +67,6 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
   }
 
   Future<void> getPrayerTimes() async {
-
     emit(PrayerTimeLoading());
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -81,22 +82,16 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       }
       if (permission == LocationPermission.whileInUse ||
           permission == LocationPermission.always) {
-        position = await Geolocator.getLastKnownPosition();
-        debugPrint('Last known position: $position');
-        if (position == null && savedLat == null) {
-          try {
-            position = await Geolocator.getCurrentPosition(
-              desiredAccuracy: LocationAccuracy.high,
-
-              timeLimit: const Duration(seconds: 5),
-            );
-            debugPrint('Current position: $position');
-          } catch (e) {
-            debugPrint(
-              'GPS unavailable: $e — using saved or fallback coordinates',
-            );
-            // position = null;
-          }
+        try {
+          position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high,
+            timeLimit: const Duration(seconds: 5),
+          );
+          debugPrint('Current position: $position');
+        } catch (e) {
+          debugPrint('GPS current position timed out/unavailable: $e');
+          position = await Geolocator.getLastKnownPosition();
+          debugPrint('Last known position: $position');
         }
       }
 
@@ -105,6 +100,7 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       if (position != null) {
         await prefs.setDouble('saved_lat', position.latitude);
         await prefs.setDouble('saved_lng', position.longitude);
+        await prefs.remove('cityName');
         myCoordinates = Coordinates(position.latitude, position.longitude);
       } else if (savedLat != null && savedLng != null) {
         myCoordinates = Coordinates(savedLat, savedLng);
@@ -122,8 +118,7 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
       try {
         await schedulePrayerAlarms(myCoordinates);
       } catch (alarmError) {
-
-        debugPrint('⚠️ Failed to schedule alarms: $alarmError');
+        emit(PrayerTimeError('⚠️ Failed to schedule alarms: $alarmError'));
       }
     } catch (e) {
       emit(PrayerTimeError(errLoadPrayerTimes));

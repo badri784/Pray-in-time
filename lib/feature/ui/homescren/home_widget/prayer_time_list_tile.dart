@@ -11,7 +11,8 @@ class PrayerTimeListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
-    final nextPrayer = prayerTimes.nextPrayer();
+    final rawNext = prayerTimes.nextPrayer();
+    final nextPrayer = rawNext == Prayer.none ? Prayer.fajr : rawNext;
     final prayers = PrayerInfo.fromPrayerTimes(prayerTimes);
 
     return Column(

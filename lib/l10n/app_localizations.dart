@@ -362,6 +362,36 @@ abstract class AppLocalizations {
   /// **'Default'**
   String get defaultOption;
 
+  /// No description provided for @restartPrayerTimeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh Prayer Times'**
+  String get restartPrayerTimeTitle;
+
+  /// No description provided for @restartPrayerTimeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to refresh location & reschedule alarms'**
+  String get restartPrayerTimeSubtitle;
+
+  /// No description provided for @prayerTimesRefreshed.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer times updated successfully'**
+  String get prayerTimesRefreshed;
+
+  /// No description provided for @refreshingPrayerTimes.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating prayer times & alarms...'**
+  String get refreshingPrayerTimes;
+
+  /// No description provided for @changingLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating language...'**
+  String get changingLanguage;
+
   /// No description provided for @locationSection.
   ///
   /// In en, this message translates to:

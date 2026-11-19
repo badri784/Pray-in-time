@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pray in Time — Privacy Policy | سياسة الخصوصية</title>
+  <style>
+    :root {
+      --bg: #090b15;
+      --card: #121829;
+      --gold: #ffab00;
+      --emerald: #10b981;
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.7);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Cairo", sans-serif;
+      line-height: 1.65;
+      padding: 32px 16px;
+    }
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 24px;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    header h1 { color: var(--gold); font-size: 1.9rem; margin-bottom: 8px; }
+    header p { color: var(--muted); font-size: 0.95rem; }
+    .badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .badge {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(255, 171, 0, 0.12);
+      color: var(--gold);
+      border: 1px solid rgba(255, 171, 0, 0.3);
+    }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .card h2 {
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .card p, .card ul {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+    .card ul {
+      padding-inline-start: 20px;
+      margin-top: 8px;
+    }
+    .card li { margin-bottom: 6px; }
+    .rtl { direction: rtl; text-align: right; }
+    .divider {
+      margin: 40px 0;
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-top: 32px;
+    }
+    a { color: var(--emerald); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Pray in Time • صلاتي في وقتها</h1>
+      <p>Privacy Policy &amp; Permissions Disclosure — سياسة الخصوصية والإفصاح عن الصلاحيات</p>
+      <div class="badges">
+        <span class="badge">Offline Ready • يعمل بدون إنترنت</span>
+        <span class="badge">No Accounts • بدون حسابات</span>
+        <span class="badge">Zero Ads &amp; Tracking • بدون إعلانات أو تتبع</span>
+      </div>
+    </header>
+
+    <!-- English Version -->
+    <div class="card">
+      <h2>1. Overview</h2>
+      <p>Welcome to <strong>Pray in Time</strong>. Your privacy is of paramount importance to us. Pray in Time is built on a privacy-first, on-device architecture. We do not operate external servers, and we never collect, sell, or share your personal data.</p>
+    </div>
+
+    <div class="card">
+      <h2>2. Location Data &amp; City Detection</h2>
+      <p>To calculate accurate Islamic prayer times (Fajr, Sunrise, Dhuhr, Asr, Maghrib, and Isha) for your region, the application requests foreground access to your device's location:</p>
+      <ul>
+        <li><strong>On-Device Calculation:</strong> Your GPS coordinates are processed locally using astronomical algorithms and cached on your device for instant offline access.</li>
+        <li><strong>City Name Display:</strong> Your device's built-in OS geocoder is used to display your city/region name in the app and save it locally.</li>
+        <li><strong>No Background Location Tracking:</strong> Location is never tracked in the background or transmitted to external servers.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>3. Alarms &amp; Foreground Adhan Audio</h2>
+      <p>Pray in Time schedules prayer alarms up to 14 days ahead directly on your device so you never miss a prayer—even when the app is closed:</p>
+      <ul>
+        <li><strong>Native Exact Alarms:</strong> Scheduled locally through Android AlarmManager (AlarmClock) with automatic restoration after device restarts (<code>RECEIVE_BOOT_COMPLETED</code>).</li>
+        <li><strong>Foreground Audio Service:</strong> When prayer time enters, a temporary foreground media service (<code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code>) runs solely to play the full Adhan audio and display a "Stop Adhan" notification control, then stops automatically.</li>
+        <li><strong>Zero Push Servers:</strong> No cloud push services or external servers are used to trigger alerts.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>4. Local Storage &amp; Third-Party Services</h2>
+      <p>Your onboarding status, app language, last detected coordinates, city name, and scheduled alarm times are stored strictly on your device via Android <code>SharedPreferences</code>. Pray in Time does <strong>NOT</strong> include third-party analytics SDKs, advertising networks, or data brokers. Clearing app data or uninstalling the app permanently removes all stored preferences.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Arabic Version -->
+    <div class="rtl">
+      <div class="card">
+        <h2>١. نظرة عامة</h2>
+        <p>مرحباً بك في تطبيق <strong>صلاتي في وقتها (Pray in Time)</strong>. صُمم التطبيق بمعمارية تحترم خصوصيتك وتعمل بالكامل على جهازك؛ فنحن لا ندير أي خوادم خارجية ولا نجمع أو نبيع أو نشارك بياناتك الشخصية أبداً.</p>
+      </div>
+
+      <div class="card">
+        <h2>٢. بيانات الموقع وتحديد المدينة</h2>
+        <p>لحساب مواقيت الصلاة بدقة (الفجر، الشروق، الظهر، العصر، المغرب، والعشاء) لمنطقتك، يطلب التطبيق صلاحية الموقع الجغرافي أثناء الاستخدام:</p>
+        <ul>
+          <li><strong>الحساب المحلي:</strong> تُعالج إحداثيات الـ GPS محلياً عبر معادلات فلكية دقيقة وتُحفظ على جهازك للعمل فوراً بدون إنترنت.</li>
+          <li><strong>عرض اسم المدينة:</strong> يُستخدم محرك العناوين المدمج في نظام الهاتف لعرض اسم مدينتك داخل التطبيق وحفظه محلياً.</li>
+          <li><strong>لا تتبع في الخلفية:</strong> لا يتم تتبع موقعك في الخلفية أو إرساله إلى أي خوادم خارجية.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>٣. المنبهات وتشغيل صوت الأذان</h2>
+        <p>يقوم التطبيق بجدولة منبهات الصلاة لمدة 14 يوماً مقدماً مباشرةً على جهازك حتى لا تفوتك أي صلاة حتى والتطبيق مغلق:</p>
+        <ul>
+          <li><strong>منبهات النظام الدقيقة:</strong> تُجدول محلياً عبر نظام أندرويد (AlarmClock) مع استعادة تلقائية بعد إعادة تشغيل الهاتف.</li>
+          <li><strong>خدمة تشغيل الأذان:</strong> عند دخول وقت الصلاة، تعمل خدمة وسائط أمامية مؤقتة لتشغيل صوت الأذان كاملاً وإظهار زر "إيقاف الأذان" في الإشعار، ثم تتوقف تلقائياً فور انتهاء الأذان.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>٤. التواصل معنا</h2>
+        <p>لأي استفسار يخص سياسة الخصوصية، يمكنك التواصل مع مطور التطبيق (أحمد صلاح) عبر البريد الإلكتروني: <a href="mailto:aelbadri23@gmail.com">aelbadri23@gmail.com</a></p>
+      </div>
+    </div>
+
+    <footer>
+      <p>Pray in Time • Version 1.0.0 • Package: com.ahmedsalah.pray_in_time</p>
+      <p>Contact: <a href="mailto:aelbadri23@gmail.com">aelbadri23@gmail.com</a></p>
+    </footer>
+  </div>
+</body>
+</html>

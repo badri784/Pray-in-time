@@ -153,6 +153,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get defaultOption => 'الافتراضي';
 
   @override
+  String get restartPrayerTimeTitle => 'تحديث مواقيت الصلاة';
+
+  @override
+  String get restartPrayerTimeSubtitle =>
+      'اضغط لتحديث الموقع وإعادة جدولة المنبهات';
+
+  @override
+  String get prayerTimesRefreshed => 'تم تحديث مواقيت الصلاة بنجاح';
+
+  @override
+  String get refreshingPrayerTimes => 'جاري تحديث المواقيت والمنبهات...';
+
+  @override
+  String get changingLanguage => 'جاري تغيير اللغة...';
+
+  @override
   String get locationSection => 'الموقع الجغرافي';
 
   @override
@@ -163,7 +179,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String autoDetectSubtitle(String city) {
-    return '$city،\nتحديد تلقائي';
+    return '$city،\nتحدد تلقائي';
   }
 
   @override
@@ -191,10 +207,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get versionNumber => 'الإصدار 1.0.0';
 
   @override
-  String get developerName => 'أحمد صلاح';
+  String get developerName => 'أحمد البدري';
 
   @override
-  String get developerRole => 'مهندس برمجيات • صلاتي في وقتها';
+  String get developerRole => 'الصلاه في وقتها';
 
   @override
   String get developerBio =>
