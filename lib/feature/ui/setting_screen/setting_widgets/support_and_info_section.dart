@@ -159,8 +159,8 @@ class SupportAndInfoSection extends StatelessWidget {
             ],
           ),
         ),
-        const Gap(8),
         Gap(28.h),
+
         Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -182,6 +182,7 @@ class SupportAndInfoSection extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
+              const Gap(15),
             ],
           ),
         ),
